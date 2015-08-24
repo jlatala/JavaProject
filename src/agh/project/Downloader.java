@@ -56,7 +56,7 @@ public class Downloader {
 	
 	public static void readSettings()
 	{
-		File properties = new File("D:/Projekty/Java/AGH/src/agh/project/properties.txt");
+		File properties = new File("src/agh/project/properties.txt");
 		Scanner read=null;
 		try
 		{
