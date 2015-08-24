@@ -12,6 +12,7 @@ public class Test {
 	
 		String tmp = new String(Downloader.run());
 		Parser.run(tmp);
+		System.out.println("Salata buc");
 	}
 }
 
