@@ -8,9 +8,6 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.Vector;
 
-
-
-
 public class Parser {
 	
 
@@ -66,9 +63,16 @@ public class Parser {
 		}while(ite2.hasNext());
 		
 		
+		for(int i=0;i<coordinates.size();i++){		
+			System.out.print(coordinates.elementAt(i));
+			System.out.print(" ");
+			System.out.print(names.elementAt(i));
+			System.out.print(" ");
+			System.out.println(last_change.elementAt(i));
+			
+		}
 		
-		
-
+		//DALEJ NIE CZYTAJ
 		
 		/* use DOM
 		Elements links = doc.getElementsByTag("table");
@@ -96,16 +100,7 @@ public class Parser {
 				i++;
 			}
 		}*/
-		for(int i=0;i<coordinates.size();i++){		
-			System.out.print(coordinates.elementAt(i));
-			System.out.print(" ");
-			System.out.print(names.elementAt(i));
-			System.out.print(" ");
-			System.out.println(last_change.elementAt(i));
-			
-		}
-	}	
-	
+
 	/* opcja z parsowaniem Stringa
 	public static void run(String html)
 	{		
@@ -114,4 +109,5 @@ public class Parser {
 		System.out.println(links);
 	}
 	*/
+	}
 }
