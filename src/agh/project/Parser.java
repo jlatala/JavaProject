@@ -37,47 +37,38 @@ public class Parser {
 		
 		Iterator<Element> ite2 = ite.next().select("tr").iterator();
 		ite2.next();
-		
-		
+		String tmp;
+		Vector<String> coordinates = new Vector<String>();
+		Vector<String> names = new Vector<String>();
+		Vector<String> last_change = new Vector<String>();
 		
 		do{
 		Iterator<Element> ite3 = ite2.next().select("td").iterator();
 		ite3.next();
+		int i=1;
 		while(ite3.hasNext()){
-		System.out.print(ite3.next().text());
-		System.out.print(" ");
+			tmp = ite3.next().text();
+			if(!tmp.contains(String.valueOf((char)176)) && i==1){
+				coordinates.add(coordinates.lastElement());
+				i=2;
+			}
+			//System.out.println(tmp);
+			switch(i){
+			case 1: coordinates.add(tmp); break;
+			case 2: names.add(tmp); break;
+			case 3: last_change.add(tmp); break;
+			default: last_change.add(""); break;
+			}
+			i++;
+			
 		}
-		System.out.println();
-		ite2.next();
+		//System.out.println(names.lastElement());
 		}while(ite2.hasNext());
 		
 		
 		
-		Vector<String> coordinates = new Vector<String>();
-		Vector<String> name = new Vector<String>();
-		Vector<String> last_change = new Vector<String>();
-		String tmp;
+		
 
-		while(ite2.hasNext()){
-			tmp = ite2.next().text().substring(2);
-			String[] parts = tmp.split(" ");
-			for(int i = 1;i<parts.length-3;i++){
-				if(parts[i].contains(String.valueOf((char)176))){
-					coordinates.add(parts[i]);
-				}
-				else{
-					coordinates.add(parts[i-1]);
-				}
-				i++;
-				name.add(parts[i].concat(parts[i+1]));
-				i+=2;
-				if(parts[i] != " "){
-					last_change.add(parts[i]);
-					i++;
-				}
-			}
-
-		}
 		
 		/* use DOM
 		Elements links = doc.getElementsByTag("table");
@@ -107,13 +98,15 @@ public class Parser {
 				last_change.add(parts[i]);
 				i++;
 			}
-		}
-		for(int i=0;i<coordinates.size();i++){		
-			System.out.println(coordinates.elementAt(i));
-			//i++;
-			//System.out.print(" ");
-			//System.out.println(name.elementAt(i));
 		}*/
+		for(int i=0;i<coordinates.size();i++){		
+			System.out.print(coordinates.elementAt(i));
+			System.out.print(" ");
+			System.out.print(names.elementAt(i));
+			System.out.print(" ");
+			System.out.println(last_change.elementAt(i));
+			
+		}
 		/*
 		System.out.println(parts[0]);
 		System.out.println(parts[1]);
