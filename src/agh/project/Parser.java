@@ -13,7 +13,7 @@ import java.util.Vector;
 
 public class Parser {
 	
-	//opcja z parsowaniem pliku
+
 	public static void run(String file_path) throws IOException{
 		File input = new File(file_path);
 		org.jsoup.nodes.Document doc = Jsoup.parse(input, "UTF-8");
@@ -80,9 +80,6 @@ public class Parser {
 		}
 		*/
 /*
-		Vector<String> coordinates = new Vector<String>();
-		Vector<String> name = new Vector<String>();
-		Vector<String> last_change = new Vector<String>();
 
 		String tmp_string = ite.next().text();
 		System.out.println(tmp_string);
@@ -107,18 +104,6 @@ public class Parser {
 			System.out.println(last_change.elementAt(i));
 			
 		}
-		/*
-		System.out.println(parts[0]);
-		System.out.println(parts[1]);
-		System.out.println(parts[2]);
-		System.out.println(parts[3]);
-		System.out.println(parts[4]);
-		System.out.println(parts[5]);
-		System.out.println(parts[6]);
-		System.out.println(parts[7]);
-		System.out.println(parts[8]);
-		System.out.println(parts[9]);
-		System.out.println(parts[10]);*/
 	}	
 	
 	/* opcja z parsowaniem Stringa
@@ -130,4 +115,3 @@ public class Parser {
 	}
 	*/
 }
-//zapisac contetnt do pliku i parsowac dopiero plik lokalny

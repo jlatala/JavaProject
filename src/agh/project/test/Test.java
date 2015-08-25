@@ -5,7 +5,6 @@ import agh.project.Downloader;
 import agh.project.Parser;
 public class Test {
 
-
 		// TODO Auto-generated method stub
 
 		public static void main(String[] args) throws IOException {
