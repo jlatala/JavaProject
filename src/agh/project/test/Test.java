@@ -9,10 +9,10 @@ public class Test {
 		// TODO Auto-generated method stub
 
 		public static void main(String[] args) throws IOException {
-	
-		String tmp = new String(Downloader.run());
-		Parser.run(tmp);
-		System.out.println("Salata ladny chlopak");
+		//String tmp = new String(Downloader.run());
+		//System.out.println(tmp);
+		Parser.run("asia.html");
+		
 	}
 }
 

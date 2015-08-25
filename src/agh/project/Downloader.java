@@ -38,15 +38,21 @@ public class Downloader {
 			}
 		}
 		while(Tries>0 && Tries<3);
-		
-
+	
+		String path = "local_website.html";
 		reader = new InputStreamReader(stream);
 		bufferedreader = new BufferedReader(reader);
-		while ((tmp=bufferedreader.readLine())!=null)
+		BufferedWriter writer = new BufferedWriter
+		(new FileWriter(path));
+		String line;
+		while ((line=bufferedreader.readLine())!=null)
 		{
-			content+=tmp+"\n";
+			writer.write(line);
+			writer.newLine();
 		}
-		return content;
+		reader.close();
+		writer.close();
+		return path;
 		}
 		catch(java.net.UnknownHostException A){
 			System.out.println("Unknown website");
