@@ -35,6 +35,50 @@ public class Parser {
 		ite.next();
 		ite.next();
 		
+		Iterator<Element> ite2 = ite.next().select("tr").iterator();
+		ite2.next();
+		
+		
+		
+		do{
+		Iterator<Element> ite3 = ite2.next().select("td").iterator();
+		ite3.next();
+		while(ite3.hasNext()){
+		System.out.print(ite3.next().text());
+		System.out.print(" ");
+		}
+		System.out.println();
+		ite2.next();
+		}while(ite2.hasNext());
+		
+		
+		
+		Vector<String> coordinates = new Vector<String>();
+		Vector<String> name = new Vector<String>();
+		Vector<String> last_change = new Vector<String>();
+		String tmp;
+
+		while(ite2.hasNext()){
+			tmp = ite2.next().text().substring(2);
+			String[] parts = tmp.split(" ");
+			for(int i = 1;i<parts.length-3;i++){
+				if(parts[i].contains(String.valueOf((char)176))){
+					coordinates.add(parts[i]);
+				}
+				else{
+					coordinates.add(parts[i-1]);
+				}
+				i++;
+				name.add(parts[i].concat(parts[i+1]));
+				i+=2;
+				if(parts[i] != " "){
+					last_change.add(parts[i]);
+					i++;
+				}
+			}
+
+		}
+		
 		/* use DOM
 		Elements links = doc.getElementsByTag("table");
 		for (Element link : links) {
@@ -44,7 +88,7 @@ public class Parser {
 			System.out.println(linkText);
 		}
 		*/
-
+/*
 		Vector<String> coordinates = new Vector<String>();
 		Vector<String> name = new Vector<String>();
 		Vector<String> last_change = new Vector<String>();
@@ -69,7 +113,7 @@ public class Parser {
 			//i++;
 			//System.out.print(" ");
 			//System.out.println(name.elementAt(i));
-		}
+		}*/
 		/*
 		System.out.println(parts[0]);
 		System.out.println(parts[1]);
