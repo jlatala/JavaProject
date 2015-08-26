@@ -8,8 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
- 
-//import agh.projekt.Satellites;
+
  
 public class SQLite {
  
@@ -49,17 +48,29 @@ public class SQLite {
         }
         return true;
     }
+    
+    public boolean deteleTables()  {
+        String deleteSatellites = "DELETE FROM satellites";
+        try {
+            stat.execute(deleteSatellites);  
+        } catch (SQLException e) {
+            System.err.println("Error during deleting table");
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
  
     public boolean insertSatellites(String coordinate, String name, String last_updt) {
         try {
             PreparedStatement prepStmt = conn.prepareStatement(
-                    "insert into satellites values (NULL, ?, ?, ?);");
+                    "insert into satellites values (?, ?, ?);");
             prepStmt.setString(1, coordinate);
             prepStmt.setString(2, name);
             prepStmt.setString(3, last_updt);
             prepStmt.execute();
         } catch (SQLException e) {
-            System.err.println("Error during interting satellite");
+            System.err.println("Error during inserting satellite");
             e.printStackTrace();
             return false;
         }

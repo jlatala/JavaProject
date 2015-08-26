@@ -9,7 +9,9 @@ import java.util.Iterator;
 import java.util.Vector;
 
 public class Parser {
-	
+	public static Vector<String> coordinates = new Vector<String>();
+	public static Vector<String> names = new Vector<String>();
+	public static Vector<String> last_update = new Vector<String>();
 
 	public static void run(String file_path) throws IOException{
 		File input = new File(file_path);
@@ -35,9 +37,7 @@ public class Parser {
 		Iterator<Element> ite2 = ite.next().select("tr").iterator();
 		ite2.next();
 		String tmp;
-		Vector<String> coordinates = new Vector<String>();
-		Vector<String> names = new Vector<String>();
-		Vector<String> last_change = new Vector<String>();
+		
 		
 		do{
 		Iterator<Element> ite3 = ite2.next().select("td").iterator();
@@ -53,8 +53,8 @@ public class Parser {
 			switch(i){
 			case 1: coordinates.add(tmp); break;
 			case 2: names.add(tmp); break;
-			case 3: last_change.add(tmp); break;
-			default: last_change.add(""); break;
+			case 3: last_update.add(tmp); break;
+			default: last_update.add(""); break;
 			}
 			i++;
 			
@@ -62,7 +62,7 @@ public class Parser {
 		//System.out.println(names.lastElement());
 		}while(ite2.hasNext());
 		
-		
+		/*
 		for(int i=0;i<coordinates.size();i++){		
 			System.out.print(coordinates.elementAt(i));
 			System.out.print(" ");
@@ -71,6 +71,7 @@ public class Parser {
 			System.out.println(last_change.elementAt(i));
 			
 		}
+		*/
 		
 		//DALEJ NIE CZYTAJ
 		
