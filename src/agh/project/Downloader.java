@@ -4,23 +4,34 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
-
+import java.util.Vector;
+/*
+ * Klasa Downloader Ci pobiera wielow¹tkowo wszystkie stronki ktore s¹ wpisane w 
+ * plik properties. Tworzy ci osobny local_html dla kazdej z nich, wiec
+ * przy parsowaniu trzeba to wziac pod uwage.
+ *  
+ */
 public class Downloader {
 
-	static URL Website;
+	public static Vector<URL> Website;
 	static Integer Timeout;
 	static Integer Tries;
+	public Downloader(Integer _instance) throws IOException
+	{
+		run(_instance);
+	}
 	
-	public static String run() throws IOException{
+	
+	public String run(Integer _instance) throws IOException{
 		try{
 		Reader reader=null;
 		InputStream stream = null;
 		BufferedReader bufferedreader;
 		URLConnection connection = null;
-		String content = null, tmp = null;
-		readSettings();
-		connection = Website.openConnection();
+		//readSettings();
+		connection = Website.get(_instance).openConnection();
 		connection.setConnectTimeout(Timeout*1000);
 
 		do{
@@ -39,11 +50,10 @@ public class Downloader {
 		}
 		while(Tries>0 && Tries<3);
 	
-		String path = "local_website.html";
+		String path = "local_website"+_instance+".html";
 		reader = new InputStreamReader(stream);
 		bufferedreader = new BufferedReader(reader);
-		BufferedWriter writer = new BufferedWriter
-		(new FileWriter(path));
+		BufferedWriter writer = new BufferedWriter(new FileWriter(path));
 		String line;
 		while ((line=bufferedreader.readLine())!=null)
 		{
@@ -62,17 +72,21 @@ public class Downloader {
 	
 	public static void readSettings()
 	{
+		Website = new Vector<URL>();
 		File properties = new File("src/agh/project/properties.txt");
 		Scanner read=null;
 		try
 		{
+			
 			read = new Scanner(properties);
 			String line;
-			while ((line = read.nextLine())!=null)
+			while ( read.hasNext())
 			{
+
+				line = read.nextLine();
 				if (line.startsWith("url"))
 				{
-					Website = new URL(line.substring("url".length()+1));
+					Website.add(new URL(line.substring("url".length()+1)));
 				}
 				else if (line.startsWith("timeout"))
 				{
@@ -84,6 +98,8 @@ public class Downloader {
 				}
 			    System.out.println(line);
 			}	
+			//System.out.println(Website.elementCount);
+			read.close();
 		}
 		catch (java.net.MalformedURLException A)
 		{

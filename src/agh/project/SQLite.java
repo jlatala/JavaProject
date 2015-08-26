@@ -9,7 +9,7 @@ import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
 
- 
+//tu sie dzieje magia
 public class SQLite {
  
     public static final String DRIVER = "org.sqlite.JDBC";
@@ -17,7 +17,8 @@ public class SQLite {
  
     private Connection conn;
     private Statement stat;
- 
+    
+    //inicjalizacja bazy danych SQLtie
     public SQLite() {
         try {
             Class.forName(SQLite.DRIVER);
@@ -36,8 +37,9 @@ public class SQLite {
  
         createTables();
     }
- 
+    //tworzenie naszej tabeli
     public boolean createTables()  {
+    	//w tym stringu podaje sie dataBase statement i przekazuje go funkcji execute
         String createSatellites = "CREATE TABLE IF NOT EXISTS satellites (coordinates varchar(255), names varchar(255), last_update varchar(255))";
         try {
             stat.execute(createSatellites);  
@@ -48,7 +50,7 @@ public class SQLite {
         }
         return true;
     }
-    
+    //usuwanie tabeli, analogicznie do tworzenia
     public boolean deteleTables()  {
         String deleteSatellites = "DELETE FROM satellites";
         try {
@@ -60,7 +62,7 @@ public class SQLite {
         }
         return true;
     }
- 
+    //dodawanie jednego rekordu
     public boolean insertSatellites(String coordinate, String name, String last_updt) {
         try {
             PreparedStatement prepStmt = conn.prepareStatement(
@@ -76,7 +78,7 @@ public class SQLite {
         }
         return true;
     }
- 
+    //zwracanie bazy z postaci listy
     public List<Satellites> selectSatellites() {
         List<Satellites> satellites = new LinkedList<Satellites>();
         try {
@@ -94,7 +96,7 @@ public class SQLite {
         }
         return satellites;
     }
- 
+    //konczenie pracy z baza
     public void closeConnection() {
         try {
             conn.close();

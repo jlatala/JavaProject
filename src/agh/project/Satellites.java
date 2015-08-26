@@ -1,5 +1,6 @@
 package agh.project;
 
+//ta klasa poki co nie jest wykorzystywana
 public class Satellites {
 	private String coordinates;
     private String names;

@@ -9,6 +9,8 @@ import java.util.Iterator;
 import java.util.Vector;
 
 public class Parser {
+	//3 wektory w ktorych przechowuje 3 kolumny ze strony, pozniej uzywane w main do tworzenia
+	//wpisow do bazy danych
 	public static Vector<String> coordinates = new Vector<String>();
 	public static Vector<String> names = new Vector<String>();
 	public static Vector<String> last_update = new Vector<String>();
@@ -25,6 +27,10 @@ public class Parser {
 		
 		//extract text "(.*){1,15}-(.*){1,5}"
 		//Elements links = doc.select("a[href~=http://www\\.lyngsat\\.com/Intelsat-18\\.html]");
+		
+		
+		//TA CZESC POLEGA NA PRZESKAKIWANIU PO KOLEJNYCH TAGACH PLIKU HTML I WYCIAGANIU ODPOWIEDNICH 
+		//DANYCH (TEKSTU), A NASTEPNIE ZAPISANIU ICH DO NASZYCH ATRYBUTOW (WEKTOROW KLASY).
 		Element table = doc.select("body").first();
 
 		Iterator<Element> ite = table.select("table[width=720]").iterator();
@@ -49,7 +55,6 @@ public class Parser {
 				coordinates.add(coordinates.lastElement());
 				i=2;
 			}
-			//System.out.println(tmp);
 			switch(i){
 			case 1: coordinates.add(tmp); break;
 			case 2: names.add(tmp); break;
@@ -59,7 +64,6 @@ public class Parser {
 			i++;
 			
 		}
-		//System.out.println(names.lastElement());
 		}while(ite2.hasNext());
 		
 		/*
@@ -72,43 +76,5 @@ public class Parser {
 			
 		}
 		*/
-		
-		//DALEJ NIE CZYTAJ
-		
-		/* use DOM
-		Elements links = doc.getElementsByTag("table");
-		for (Element link : links) {
-			String linkHref = link.attr("bgcolor");
-			//System.out.println(linkHref);
-			String linkText = link.text();
-			System.out.println(linkText);
-		}
-		*/
-/*
-
-		String tmp_string = ite.next().text();
-		System.out.println(tmp_string);
-		String[] parts = tmp_string.split(" ");
-		
-		
-		for(int i = 1;i<parts.length-3;i++){
-			coordinates.add(parts[i]);
-			i++;
-			name.add(parts[i].concat(parts[i+1]));
-			i++; i++;
-			if(parts[i] != " "){
-				last_change.add(parts[i]);
-				i++;
-			}
-		}*/
-
-	/* opcja z parsowaniem Stringa
-	public static void run(String html)
-	{		
-		org.jsoup.nodes.Document doc = Jsoup.parse(html);
-		Elements links = doc.select("img[src~=(?i)\\.(png)]");
-		System.out.println(links);
-	}
-	*/
 	}
 }
