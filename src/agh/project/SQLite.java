@@ -13,7 +13,7 @@ import java.util.List;
 public class SQLite {
  
     public static final String DRIVER = "org.sqlite.JDBC";
-    public static final String DB_URL = "jdbc:sqlite:biblioteka.db";
+    public static final String DB_URL = "jdbc:sqlite:AsiaSatellites.db";
  
     private Connection conn;
     private Statement stat;
