@@ -26,7 +26,7 @@ public class Test {
 		
 		for(Satellites sat: satellite)
 			System.out.println(sat);
-		
+		//System.out.println(par.coordinates.elementAt(0).substring(0, par.coordinates.elementAt(0).length() - 2));
 		dataBase.deteleTables();
 		dataBase.closeConnection();
 	}
