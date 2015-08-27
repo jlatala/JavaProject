@@ -2,6 +2,7 @@ takie jak timeout, listê ponowieñ, ustawienie cookies, nazwa i has³o, itp
 url http://www.lyngsat.com
 url http://www.onet.pl
 url http://www.wp.pl
+url http://www.nbp.pl
 timeout 15
 try 3
 
