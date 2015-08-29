@@ -9,11 +9,10 @@ import java.util.Iterator;
 import java.util.Vector;
 
 public class Parser {
-	//3 wektory w ktorych przechowuje 3 kolumny ze strony, pozniej uzywane w main do tworzenia
-	//wpisow do bazy danych
-	public static Vector<String> coordinates = new Vector<String>();
-	public static Vector<String> names = new Vector<String>();
-	public static Vector<String> last_update = new Vector<String>();
+	public static Vector<Double> Coordinates = new Vector<Double>();
+	public static Vector<String> EW = new Vector<String>();	
+	public static Vector<String> Name = new Vector<String>();
+	public static Vector<String> Last_Update = new Vector<String>();
 
 	public static void run(String file_path) throws IOException{
 		File input = new File(file_path);
@@ -52,14 +51,21 @@ public class Parser {
 		while(ite3.hasNext()){
 			tmp = ite3.next().text();
 			if(!tmp.contains(String.valueOf((char)176)) && i==1){
-				coordinates.add(coordinates.lastElement());
+				Coordinates.add(Coordinates.lastElement());
+				EW.add(EW.lastElement());
 				i=2;
 			}
 			switch(i){
-			case 1: coordinates.add(tmp); break;
-			case 2: names.add(tmp); break;
-			case 3: last_update.add(tmp); break;
-			default: last_update.add(""); break;
+			case 1: 
+				{
+					String EWtmp =new String(tmp.substring(tmp.indexOf("°")+1, tmp.indexOf("°")+2));
+					Coordinates.add(Double.parseDouble(tmp.substring(0, tmp.indexOf("°")))); 
+					EW.add(EWtmp);
+				}
+				break;
+			case 2: Name.add(tmp); break;
+			case 3: Last_Update.add(tmp); break;
+			default: Last_Update.add(""); break;
 			}
 			i++;
 			

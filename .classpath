@@ -4,7 +4,7 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 <<<<<<< HEAD
 	<classpathentry kind="lib" path="jsoup-1.8.3.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Kuba/repository/sqlite-jdbc-3.8.11.1.jar" sourcepath=""/>
+	<classpathentry kind="lib" path="sqlite-jdbc-3.8.11.1.jar"/>
 =======
 	<classpathentry kind="lib" path="jsoup-1.8.3.jar" sourcepath="jsoup-1.8.3-sources.jar"/>
 >>>>>>> 0db8c71285db68d1c2a60fb02c194094a746ee08
