@@ -19,15 +19,15 @@ public class Test {
 		//Satellites s = new Satellites("35E","nazwa mojej sat", "021015");
 		SQLite dataBase = new SQLite();
 		
-		for(int i=0;i<par.coordinates.size();i++){
-			dataBase.insertSatellites(par.coordinates.elementAt(i), par.names.elementAt(i), par.last_update.elementAt(i));
+		for(int i=0;i<par.Coordinates.size();i++){
+			dataBase.insertSatellites(par.Name.elementAt(i), par.Coordinates.elementAt(i), par.EW.elementAt(i), par.Last_Update.elementAt(i));
 		}
 		List<Satellites> satellite = dataBase.selectSatellites();
 		
 		for(Satellites sat: satellite)
 			System.out.println(sat);
 		//System.out.println(par.coordinates.elementAt(0).substring(0, par.coordinates.elementAt(0).length() - 2));
-		dataBase.deteleTables();
+		dataBase.deleteTables();
 		dataBase.closeConnection();
 	}
 }

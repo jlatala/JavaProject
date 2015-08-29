@@ -38,7 +38,7 @@ public class SQLite {
     }
  
     public boolean createTables()  {
-        String createSatellites = "CREATE TABLE IF NOT EXISTS satellites (coordinates varchar(255), names varchar(255), last_update varchar(255))";
+        String createSatellites = "CREATE TABLE IF NOT EXISTS Satellites (Name varchar(255), Coordinates double, EW varchar(255), Last_Update varchar(255))";
         try {
             stat.execute(createSatellites);  
         } catch (SQLException e) {
@@ -49,7 +49,7 @@ public class SQLite {
         return true;
     }
     
-    public boolean deteleTables()  {
+    public boolean deleteTables()  {
         String deleteSatellites = "DELETE FROM satellites";
         try {
             stat.execute(deleteSatellites);  
@@ -61,13 +61,14 @@ public class SQLite {
         return true;
     }
  
-    public boolean insertSatellites(String coordinate, String name, String last_updt) {
+    public boolean insertSatellites(String Name, Double Coordinates, String EW, String Last_Updt) {
         try {
             PreparedStatement prepStmt = conn.prepareStatement(
-                    "insert into satellites values (?, ?, ?);");
-            prepStmt.setString(1, coordinate);
-            prepStmt.setString(2, name);
-            prepStmt.setString(3, last_updt);
+                    "insert into satellites values (?, ?, ?, ?);");
+            prepStmt.setString(1, Name);
+            prepStmt.setDouble(2, Coordinates);
+            prepStmt.setString(3, EW);
+            prepStmt.setString(4, Last_Updt);            
             prepStmt.execute();
         } catch (SQLException e) {
             System.err.println("Error during inserting satellite");
@@ -80,13 +81,15 @@ public class SQLite {
     public List<Satellites> selectSatellites() {
         List<Satellites> satellites = new LinkedList<Satellites>();
         try {
-            ResultSet result = stat.executeQuery("SELECT * FROM satellites"); // WHERE coordinates.substring(0, coordinates.length() - 2) > 100.5");
-            String coordinate, name, last_updt;
+            ResultSet result = stat.executeQuery("SELECT * FROM satellites WHERE Coordinates > 155 AND Coordinates < 170"); // WHERE coordinates.substring(0, coordinates.length() - 2) > 100.5");
+            String Name, EW, Last_Updt;
+            Double Coordinates;
             while(result.next()) {
-                coordinate = result.getString("coordinates");
-                name = result.getString("names");
-                last_updt = result.getString("last_update");               
-                satellites.add(new Satellites(coordinate, name, last_updt));
+                Name = result.getString("Name");
+                Coordinates = result.getDouble("Coordinates");
+                EW = result.getString("EW");   
+                Last_Updt = result.getString("Last_Update");
+                satellites.add(new Satellites(Name, Coordinates, EW, Last_Updt));
             }
         } catch (SQLException e) {
             e.printStackTrace();
