@@ -13,25 +13,27 @@ import java.util.Vector;
  * przy parsowaniu trzeba to wziac pod uwage.
  *  
  */
-public class Downloader {
+public class Downloader implements Runnable{
 
 	public static Vector<URL> Website;
+	//String Content;
 	static Integer Timeout;
 	static Integer Tries;
-	public Downloader(Integer _instance) throws IOException
+	Integer Instance;
+	//Integer Count = 0;
+	Downloader(Integer _Instance)
 	{
-		run(_instance);
+		Instance = _Instance;
 	}
 	
-	
-	public String run(Integer _instance) throws IOException{
+	public void run(){
 		try{
 		Reader reader=null;
 		InputStream stream = null;
 		BufferedReader bufferedreader;
 		URLConnection connection = null;
 		//readSettings();
-		connection = Website.get(_instance).openConnection();
+		connection = Website.get(Instance).openConnection();
 		connection.setConnectTimeout(Timeout*1000);
 
 		do{
@@ -44,29 +46,36 @@ public class Downloader {
 				Tries--;
 				if (Tries==0)
 				{
-					return"";
+					return;
 				}
 			}
 		}
 		while(Tries>0 && Tries<3);
 	
-		String path = "local_website"+_instance+".html";
+		//String path = "local_website"+Instance+".html";
 		reader = new InputStreamReader(stream);
 		bufferedreader = new BufferedReader(reader);
-		BufferedWriter writer = new BufferedWriter(new FileWriter(path));
+		//BufferedWriter writer = new BufferedWriter(new FileWriter(path));
 		String line;
 		while ((line=bufferedreader.readLine())!=null)
 		{
-			writer.write(line);
-			writer.newLine();
+			DownloaderPool.DownloadedContent[Instance]+=line;
+			//writer.write(line);
+			//System.out.println(Count);
+			//Count++;
+			//writer.newLine();
 		}
-		reader.close();
-		writer.close();
-		return path;
+		//reader.close();
+		//writer.close();
+		return;
 		}
 		catch(java.net.UnknownHostException A){
 			System.out.println("Unknown website");
-			return "";
+			return;
+		}
+		catch(IOException a)
+		{
+			return;
 		}
 	}
 	
@@ -96,7 +105,7 @@ public class Downloader {
 				{
 					Tries = new Integer(line.substring("try".length()+1));
 				}
-			    System.out.println(line);
+			    //System.out.println(line);
 			}	
 			//System.out.println(Website.elementCount);
 			read.close();
@@ -113,5 +122,6 @@ public class Downloader {
 		}
 
 	}
-	
+
+
 }
