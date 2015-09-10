@@ -49,7 +49,6 @@ public class Parser {
 				coordinates.add(coordinates.lastElement());
 				i=2;
 			}
-			//System.out.println(tmp);
 			switch(i){
 			case 1: coordinates.add(tmp); break;
 			case 2: names.add(tmp); break;
@@ -59,56 +58,6 @@ public class Parser {
 			i++;
 			
 		}
-		//System.out.println(names.lastElement());
 		}while(ite2.hasNext());
-		
-		/*
-		for(int i=0;i<coordinates.size();i++){		
-			System.out.print(coordinates.elementAt(i));
-			System.out.print(" ");
-			System.out.print(names.elementAt(i));
-			System.out.print(" ");
-			System.out.println(last_change.elementAt(i));
-			
-		}
-		*/
-		
-		//DALEJ NIE CZYTAJ
-		
-		/* use DOM
-		Elements links = doc.getElementsByTag("table");
-		for (Element link : links) {
-			String linkHref = link.attr("bgcolor");
-			//System.out.println(linkHref);
-			String linkText = link.text();
-			System.out.println(linkText);
-		}
-		*/
-/*
-
-		String tmp_string = ite.next().text();
-		System.out.println(tmp_string);
-		String[] parts = tmp_string.split(" ");
-		
-		
-		for(int i = 1;i<parts.length-3;i++){
-			coordinates.add(parts[i]);
-			i++;
-			name.add(parts[i].concat(parts[i+1]));
-			i++; i++;
-			if(parts[i] != " "){
-				last_change.add(parts[i]);
-				i++;
-			}
-		}*/
-
-	/* opcja z parsowaniem Stringa
-	public static void run(String html)
-	{		
-		org.jsoup.nodes.Document doc = Jsoup.parse(html);
-		Elements links = doc.select("img[src~=(?i)\\.(png)]");
-		System.out.println(links);
-	}
-	*/
 	}
 }

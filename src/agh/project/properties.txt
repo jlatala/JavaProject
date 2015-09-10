@@ -1,5 +1,21 @@
-takie jak timeout, listê ponowieñ, ustawienie cookies, nazwa i has³o, itp
-url http://www.lyngsat.com
-timeout 15
+Properties
+
+***asia***
+url http://www.lyngsat.com/asia.html
+timeout 3
 try 3
 
+***europe***
+url http://www.lyngsat.com/europe.html
+timeout 3
+try 3
+
+***atlantic***
+url http://www.lyngsat.com/atlantic.html
+timeout 3
+try 3
+
+***america***
+url http://www.lyngsat.com/america.html
+timeout 3
+try 3

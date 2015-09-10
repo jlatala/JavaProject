@@ -2,24 +2,23 @@ package agh.project;
 import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Downloader {
-
+	
+	static String Name;
 	static URL Website;
 	static Integer Timeout;
 	static Integer Tries;
 	
-	public static String run() throws IOException{
+	public static String download() throws IOException{
 		try{
 		Reader reader=null;
 		InputStream stream = null;
 		BufferedReader bufferedreader;
 		URLConnection connection = null;
 		String content = null, tmp = null;
-		readSettings();
+		//readSettings();
 		connection = Website.openConnection();
 		connection.setConnectTimeout(Timeout*1000);
 
@@ -39,11 +38,10 @@ public class Downloader {
 		}
 		while(Tries>0 && Tries<3);
 	
-		String path = "local_website.html";
+		String path = Name+".html";
 		reader = new InputStreamReader(stream);
 		bufferedreader = new BufferedReader(reader);
-		BufferedWriter writer = new BufferedWriter
-		(new FileWriter(path));
+		BufferedWriter writer = new BufferedWriter(new FileWriter(path));
 		String line;
 		while ((line=bufferedreader.readLine())!=null)
 		{
@@ -60,29 +58,29 @@ public class Downloader {
 		}
 	}
 	
-	public static void readSettings()
+	public static void readSettings() throws IOException
 	{
 		File properties = new File("src/agh/project/properties.txt");
 		Scanner read=null;
 		try
 		{
-			read = new Scanner(properties);
+			read = new Scanner(properties);			
 			String line;
+			int i=0;
 			while ((line = read.nextLine())!=null)
-			{
-				if (line.startsWith("url"))
+			{			
+				if (line.startsWith("***"))
 				{
+					Name = line.substring("***".length(),line.length()-3);
+					line = read.nextLine();
 					Website = new URL(line.substring("url".length()+1));
-				}
-				else if (line.startsWith("timeout"))
-				{
+					line = read.nextLine();
 					Timeout = new Integer(line.substring("timeout".length()+1));
-				}
-				else if (line.startsWith("try"))
-				{
+					line = read.nextLine();
 					Tries = new Integer(line.substring("try".length()+1));
+					download();
+					i++;
 				}
-			    System.out.println(line);
 			}	
 		}
 		catch (java.net.MalformedURLException A)
