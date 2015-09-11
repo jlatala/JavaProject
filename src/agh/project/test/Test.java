@@ -7,44 +7,54 @@ import agh.project.Parser;
 import agh.project.SQLite;
 import agh.project.Satellites;
 import agh.project.Properties;
+import agh.project.GUI;
+
 public class Test {
 
-		// TODO Auto-generated method stub
-
 		public static void main(String[] args) throws IOException {
+		
+		System.out.println("Otwieram okno");
+		GUI form = new GUI();
+		form.setVisible(true);
+		
+		/*
+		String s1 = "101.4";
+		float i1 = Float.parseFloat(s1)
+		System.out.println(i1);
+		*/
+		
+		System.out.println("Tworze plik Properties");
 		Properties.initProp();
 		//Properties.deleteWebsite("***europe***");
-		
+		System.out.println("Pobieram strony");
 		Downloader.readSettings();
 		
-			
-		Parser asia = new Parser();
-		asia.run("asia.html");
-		asia.run("europe.html");
-		asia.run("atlantic.html");
-		asia.run("america.html");
+		System.out.println("Parsuje");
+		Parser par = new Parser();
+		par.run("asia.html");
+		//par.run("europe.html");
+		//par.run("atlantic.html");
+		//par.run("america.html");
 		
 		
 		//Satellites s = new Satellites("35E","nazwa mojej sat", "021015");
+		System.out.println("Tworze baze");
 		SQLite dataBase = new SQLite();
-		
-		for(int i=0;i<asia.coordinates.size();i++){
-			dataBase.insertSatellites(asia.coordinates.elementAt(i), asia.names.elementAt(i), asia.last_update.elementAt(i));
+		System.out.println("Zapisuje do bazy");
+		for(int i=0;i<par.coordinates.size();i++){
+			dataBase.insertSatellites(par.coordinates.elementAt(i), par.names.elementAt(i), par.last_update.elementAt(i));
 		}
-	/*	for(int i=0;i<europe.coordinates.size();i++){
-			dataBase.insertSatellites(europe.coordinates.elementAt(i), europe.names.elementAt(i), europe.last_update.elementAt(i));
-		}
-		for(int i=0;i<atlantic.coordinates.size();i++){
-			dataBase.insertSatellites(atlantic.coordinates.elementAt(i), atlantic.names.elementAt(i), atlantic.last_update.elementAt(i));
-		}
-		for(int i=0;i<america.coordinates.size();i++){
-			dataBase.insertSatellites(america.coordinates.elementAt(i), america.names.elementAt(i), america.last_update.elementAt(i));
-		}*/
+		System.out.println("Odczytuje z bazy");
 		List<Satellites> satellite = dataBase.selectSatellites();
-		
+		System.out.println("Drukuje w oknie");
 		for(Satellites sat: satellite)
-			System.out.println(sat);
-		//System.out.println(par.coordinates.elementAt(0).substring(0, par.coordinates.elementAt(0).length() - 2));
+			form.showSatList(sat);
+		
+		Float f = Float.parseFloat(par.coordinates.elementAt(0).substring(0, par.coordinates.elementAt(0).length() - 2));
+		if(f>100.5)
+			System.out.println("OK");
+		System.out.println("Koniec");
+		
 		dataBase.deteleTables();
 		dataBase.closeConnection();
 		

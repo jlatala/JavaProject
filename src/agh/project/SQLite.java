@@ -13,7 +13,7 @@ import java.util.List;
 public class SQLite {
  
     public static final String DRIVER = "org.sqlite.JDBC";
-    public static final String DB_URL = "jdbc:sqlite:AsiaSatellites.db";
+    public static final String DB_URL = "jdbc:sqlite:Satellites.db";
  
     private Connection conn;
     private Statement stat;
@@ -51,6 +51,7 @@ public class SQLite {
     
     public boolean deteleTables()  {
         String deleteSatellites = "DELETE FROM satellites";
+    	//String deleteSatellites = "DROP TABLE IF EXISTS satellites";
         try {
             stat.execute(deleteSatellites);  
         } catch (SQLException e) {
@@ -80,7 +81,7 @@ public class SQLite {
     public List<Satellites> selectSatellites() {
         List<Satellites> satellites = new LinkedList<Satellites>();
         try {
-            ResultSet result = stat.executeQuery("SELECT * FROM satellites"); // WHERE coordinates.substring(0, coordinates.length() - 2) > 100.5");
+            ResultSet result = stat.executeQuery("SELECT * FROM satellites WHERE SUBSTRING(coordinates, 0, coordinates.length()-2) > 120");
             String coordinate, name, last_updt;
             while(result.next()) {
                 coordinate = result.getString("coordinates");
