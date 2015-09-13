@@ -44,11 +44,11 @@ public class Properties {
 		    out.println("***"+url+"***");		    
 		    out.println("url http://www.lyngsat.com/"+url+".html");
 		    out.println("timeout "+timeout);
-		    out.print("try "+attempts);
+		    out.println("try "+attempts);
 			regions.add(url);
 		    out.close();
 		}catch (IOException e) {
-			Log4j.log.error(e, e);
+		    //exception handling left as an exercise for the reader
 		}
 	}
 	

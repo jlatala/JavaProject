@@ -1,41 +1,38 @@
 package agh.project;
 
-//ta klasa poki co nie jest wykorzystywana
 public class Satellites {
-	private String Name;
-    private String EW;
-    private Double Coordinates;
-    private String Last_Update;
+	private String coordinates;
+    private String names;
+    private String last_update;
  
-    public Double getCoordinates() {
-        return Coordinates;
+    public String getCoordinates() {
+        return coordinates;
     }
-    public void setCoordinate(Double _Coordinates) {
-        this.Coordinates = _Coordinates;
+    public void setCoordinate(String coordinate) {
+        this.coordinates = coordinate;
     }
     public String getName() {
-        return Name;
+        return names;
     }
-    public void setName(String _Name) {
-        this.Name = _Name;
+    public void setTytul(String name) {
+        this.names = name;
     }
-    public String getLastUpdate() {
-        return Last_Update;
+    public String getAutor() {
+        return last_update;
     }
-    public void setLastUpdate(String _Last_Updt) {
-        this.Last_Update = _Last_Updt;
+    public void setAutor(String last_updt) {
+        this.last_update = last_updt;
     }
  
     public Satellites() {}
-    public Satellites(String _Name, Double _Coordinates, String _EW, String _Last_Updt) {
-    	this.Name = _Name;
-        this.Coordinates = _Coordinates;
-        this.EW = _EW;
-        this.Last_Update = _Last_Updt;
+    public Satellites(String coordinate, String name, String last_updt) {
+        this.coordinates = coordinate;
+        this.names = name;
+        this.last_update = last_updt;
     }
  
     @Override
     public String toString() {
-        return "["+Coordinates+"°"+EW+"] - "+Name+" - "+Last_Update;
+        return "["+coordinates+"] - "+names+" - "+last_update;
     }
 }

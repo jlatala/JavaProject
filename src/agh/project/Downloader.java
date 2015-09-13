@@ -26,10 +26,9 @@ public class Downloader {
 			try{
 				stream = connection.getInputStream();
 			}
-			catch(java.net.SocketTimeoutException e)
+			catch(java.net.SocketTimeoutException A)
 			{
-				Log4j.log.error("Connection Timeout "+Timeout+" "+Tries);
-				Log4j.log.error(e, e);
+				System.out.println("Connection Timeout "+Timeout+" "+Tries);
 				Tries--;
 				if (Tries==0)
 				{
@@ -53,9 +52,8 @@ public class Downloader {
 		writer.close();
 		return path;
 		}
-		catch(java.net.UnknownHostException e){
-			Log4j.log.error("Unknown website");
-			Log4j.log.error(e, e);
+		catch(java.net.UnknownHostException A){
+			System.out.println("Unknown website");
 			return "";
 		}
 	}
@@ -85,17 +83,14 @@ public class Downloader {
 				}
 			}	
 		}
-		catch (java.net.MalformedURLException e)
+		catch (java.net.MalformedURLException A)
 		{
-			Log4j.log.error("Malformed URL");
-			Log4j.log.error(e, e);
+			System.out.println("Malformed URL");
 		}
-		catch (FileNotFoundException e){
-			Log4j.log.error("File not found");
-			Log4j.log.error(e, e);
+		catch (FileNotFoundException A){
+			System.out.println("File not found");
 		}
-		catch (java.util.NoSuchElementException e){
-			//Log4j.log.error(e, e);
+		catch (java.util.NoSuchElementException A){
 			read.close();
 		}
 
