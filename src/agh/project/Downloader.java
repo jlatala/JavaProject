@@ -16,6 +16,7 @@ import java.util.Vector;
 public class Downloader implements Runnable{
 
 	public static Vector<URL> Website;
+	public static Boolean[] DoTry;
 	//String Content;
 	static Integer Timeout;
 	static Integer Tries;
@@ -28,55 +29,70 @@ public class Downloader implements Runnable{
 	
 	public void run(){
 		try{
-		Reader reader=null;
-		InputStream stream = null;
-		BufferedReader bufferedreader;
-		URLConnection connection = null;
-		//readSettings();
-		connection = Website.get(Instance).openConnection();
-		connection.setConnectTimeout(Timeout*1000);
+		if(DoTry[Instance])
+		{
+			Reader reader=null;
+			InputStream stream = null;
+			BufferedReader bufferedreader;
+			URLConnection connection = null;
+			//readSettings();
+			connection = Website.get(Instance).openConnection();
+			connection.setConnectTimeout(Timeout*1000);
 
-		do{
-			try{
-				stream = connection.getInputStream();
-			}
-			catch(java.net.SocketTimeoutException A)
-			{
-				System.out.println("Connection Timeout "+Timeout+" "+Tries);
-				Tries--;
-				if (Tries==0)
+			do{
+				try{
+					stream = connection.getInputStream();
+				}
+				catch(java.net.SocketTimeoutException A)
 				{
-					return;
+					System.out.println("Connection Timeout "+Timeout+" "+Tries);
+					Tries--;
+					if (Tries==0)
+					{
+						return;
+					}
 				}
 			}
-		}
-		while(Tries>0 && Tries<3);
-	
-		//String path = "local_website"+Instance+".html";
-		reader = new InputStreamReader(stream);
-		bufferedreader = new BufferedReader(reader);
-		//BufferedWriter writer = new BufferedWriter(new FileWriter(path));
-		String line;
-		while ((line=bufferedreader.readLine())!=null)
-		{
-			DownloaderPool.DownloadedContent[Instance]+=line;
-			//writer.write(line);
-			//System.out.println(Count);
-			//Count++;
-			//writer.newLine();
-		}
-		//reader.close();
-		//writer.close();
-		return;
-		}
-		catch(java.net.UnknownHostException A){
-			System.out.println("Unknown website");
+			while(Tries>0 && Tries<3);
+		
+			//String path = "local_website"+Instance+".html";
+			reader = new InputStreamReader(stream);
+			bufferedreader = new BufferedReader(reader);
+			//BufferedWriter writer = new BufferedWriter(new FileWriter(path));
+			String line;
+			while ((line=bufferedreader.readLine())!=null)
+			{
+				DownloaderPool.DownloadedContent[Instance]+=line;
+				//writer.write(line);
+				//System.out.println(Count);
+				//Count++;
+				//writer.newLine();
+			}
+			
+			
+			
+			
+			
+			//reader.close();
+			//writer.close();
 			return;
+
 		}
-		catch(IOException a)
+		else
 		{
-			return;
+			DownloaderPool.DownloadedContent[Instance]="";
 		}
+		}
+			catch(java.net.UnknownHostException A){
+				System.out.println("Unknown website");
+				return;
+			}
+			catch(IOException a)
+			{
+				return;
+			}
+		
+
 	}
 	
 	public static void readSettings()

@@ -15,6 +15,7 @@ public class SQLite {
  
     public static final String DRIVER = "org.sqlite.JDBC";
     public static final String DB_URL = "jdbc:sqlite:AsiaSatellites.db";
+    //public SQLite DataBase;
  
     private Connection conn;
     private Statement stat;
@@ -23,7 +24,7 @@ public class SQLite {
     {
     	
 		try {
-			for (int i=0;i<4;i++)
+			for (int i=0;i<Downloader.Website.size();i++)
 			{
 				Parser par = new Parser();
 				par.run(i); 

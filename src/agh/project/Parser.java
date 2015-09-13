@@ -19,7 +19,10 @@ public class Parser {
 		
 		//while(DownloaderPool.DownloadedContent[_Instance].isEmpty());
 		//System.out.println(DownloaderPool.DownloadedContent[_Instance]);
-		
+		if(DownloaderPool.DownloadedContent[_Instance]=="")
+		{
+			return;
+		}
 		String input = new String(DownloaderPool.DownloadedContent[_Instance]);
 		org.jsoup.nodes.Document doc = Jsoup.parse(input, "UTF-8");
 		
