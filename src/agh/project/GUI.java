@@ -221,10 +221,10 @@ public class GUI extends javax.swing.JFrame {
         
         Log4j.log.info("Parsing");
 		par = new Parser();
-		par.run("asia.html");
+		//par.run("asia.html");
 		par.run("europe.html");
-		par.run("atlantic.html");
-		par.run("america.html");
+		//par.run("atlantic.html");
+		//par.run("america.html");
         
 		Log4j.log.info("Creating data base");
 		dataBase = new SQLite();
@@ -377,12 +377,7 @@ public class GUI extends javax.swing.JFrame {
 		for(Satellites sat: satellite)
 			showSatList(sat);    	
     }
-    protected void finalize( )
-    {
-    	Log4j.log.info("Close");		
-		dataBase.deleteTables();
-		dataBase.closeConnection();
-    }
+
 
  // Variables declaration - do not modify                     
     private javax.swing.JCheckBox americaBox;

@@ -1,0 +1,164 @@
+2015-09-13 18:05:56,463  INFO [main] - agh.project.Log4j.main 10 - Test Message
+2015-09-13 18:05:56,471 ERROR [main] - agh.project.Log4j.main 14 - java.lang.Exception: New Exception
+java.lang.Exception: New Exception
+	at agh.project.Log4j.main(Log4j.java:12)
+2015-09-13 18:37:42,226  INFO [main] - agh.project.Log4j.main 24 - Tworze plik Properties
+2015-09-13 18:37:42,240  INFO [main] - agh.project.Log4j.main 27 - Pobieram strony
+2015-09-13 18:37:44,033 ERROR [main] - agh.project.Log4j.readSettings 102 - java.util.NoSuchElementException: No line found
+java.util.NoSuchElementException: No line found
+	at java.util.Scanner.nextLine(Unknown Source)
+	at agh.project.Downloader.readSettings(Downloader.java:74)
+	at agh.project.main.Main.main(Main.java:28)
+2015-09-13 18:37:44,037  INFO [main] - agh.project.Log4j.main 30 - Otwieram okno
+2015-09-13 18:39:48,157  INFO [main] - agh.project.Log4j.main 24 - Tworze plik Properties
+2015-09-13 18:39:48,174  INFO [main] - agh.project.Log4j.main 27 - Pobieram strony
+2015-09-13 18:39:49,029 ERROR [main] - agh.project.Log4j.readSettings 102 - java.util.NoSuchElementException: No line found
+java.util.NoSuchElementException: No line found
+	at java.util.Scanner.nextLine(Unknown Source)
+	at agh.project.Downloader.readSettings(Downloader.java:74)
+	at agh.project.main.Main.main(Main.java:28)
+2015-09-13 18:39:49,034  INFO [main] - agh.project.Log4j.main 30 - Otwieram okno
+2015-09-13 18:42:41,081  INFO [main] - agh.project.Log4j.main 24 - Tworze plik Properties
+2015-09-13 18:42:41,095  INFO [main] - agh.project.Log4j.main 27 - Pobieram strony
+2015-09-13 18:42:42,867 ERROR [main] - agh.project.Log4j.readSettings 102 - java.util.NoSuchElementException: No line found
+java.util.NoSuchElementException: No line found
+	at java.util.Scanner.nextLine(Unknown Source)
+	at agh.project.Downloader.readSettings(Downloader.java:74)
+	at agh.project.main.Main.main(Main.java:28)
+2015-09-13 18:42:42,872  INFO [main] - agh.project.Log4j.main 30 - Otwieram okno
+2015-09-13 18:42:44,524  INFO [main] - agh.project.Log4j.initComponents 222 - Parsing
+2015-09-13 18:42:45,101  INFO [main] - agh.project.Log4j.initComponents 229 - Creating data base
+2015-09-13 18:42:48,965  INFO [main] - agh.project.Log4j.initComponents 233 - Write to data base
+2015-09-13 18:43:34,861  INFO [main] - agh.project.Log4j.initComponents 237 - Ready
+2015-09-13 18:43:42,589  INFO [main] - agh.project.Log4j.main 24 - Tworze plik Properties
+2015-09-13 18:43:42,599  INFO [main] - agh.project.Log4j.main 27 - Pobieram strony
+2015-09-13 18:43:43,676 ERROR [main] - agh.project.Log4j.readSettings 102 - java.util.NoSuchElementException: No line found
+java.util.NoSuchElementException: No line found
+	at java.util.Scanner.nextLine(Unknown Source)
+	at agh.project.Downloader.readSettings(Downloader.java:74)
+	at agh.project.main.Main.main(Main.java:28)
+2015-09-13 18:43:43,682  INFO [main] - agh.project.Log4j.main 30 - Otwieram okno
+2015-09-13 18:43:44,369  INFO [main] - agh.project.Log4j.initComponents 222 - Parsing
+2015-09-13 18:43:44,960  INFO [main] - agh.project.Log4j.initComponents 229 - Creating data base
+2015-09-13 18:43:47,153  INFO [main] - agh.project.Log4j.initComponents 233 - Write to data base
+2015-09-13 18:44:23,351  INFO [main] - agh.project.Log4j.initComponents 237 - Ready
+2015-09-13 18:44:32,199  INFO [AWT-EventQueue-0] - agh.project.Log4j.readFromDataBase 365 - Read from data base
+2015-09-13 18:44:32,202  INFO [AWT-EventQueue-0] - agh.project.Log4j.readFromDataBase 375 - Print in GUI TextArea
+2015-09-13 18:44:35,040  INFO [AWT-EventQueue-0] - agh.project.Log4j.readFromDataBase 365 - Read from data base
+2015-09-13 18:44:35,043  INFO [AWT-EventQueue-0] - agh.project.Log4j.readFromDataBase 375 - Print in GUI TextArea
+2015-09-13 18:47:49,978  INFO [main] - agh.project.Log4j.main 24 - Tworze plik Properties
+2015-09-13 18:47:50,003  INFO [main] - agh.project.Log4j.main 27 - Pobieram strony
+2015-09-13 18:47:50,934 ERROR [main] - agh.project.Log4j.readSettings 98 - java.util.NoSuchElementException: No line found
+java.util.NoSuchElementException: No line found
+	at java.util.Scanner.nextLine(Unknown Source)
+	at agh.project.Downloader.readSettings(Downloader.java:72)
+	at agh.project.main.Main.main(Main.java:28)
+2015-09-13 18:47:50,938  INFO [main] - agh.project.Log4j.main 30 - Otwieram okno
+2015-09-13 18:47:51,778  INFO [main] - agh.project.Log4j.initComponents 222 - Parsing
+2015-09-13 18:47:52,358  INFO [main] - agh.project.Log4j.initComponents 229 - Creating data base
+2015-09-13 18:47:54,511  INFO [main] - agh.project.Log4j.initComponents 233 - Write to data base
+2015-09-13 18:48:33,051  INFO [main] - agh.project.Log4j.initComponents 237 - Ready
+2015-09-13 18:49:43,698  INFO [main] - agh.project.Log4j.main 24 - Tworze plik Properties
+2015-09-13 18:49:43,709  INFO [main] - agh.project.Log4j.main 27 - Pobieram strony
+2015-09-13 18:49:45,659 ERROR [main] - agh.project.Log4j.readSettings 98 - java.util.NoSuchElementException: No line found
+java.util.NoSuchElementException: No line found
+	at java.util.Scanner.nextLine(Unknown Source)
+	at agh.project.Downloader.readSettings(Downloader.java:72)
+	at agh.project.main.Main.main(Main.java:28)
+2015-09-13 18:49:45,665  INFO [main] - agh.project.Log4j.main 30 - Otwieram okno
+2015-09-13 18:49:46,449  INFO [main] - agh.project.Log4j.initComponents 222 - Parsing
+2015-09-13 18:49:46,914  INFO [main] - agh.project.Log4j.initComponents 229 - Creating data base
+2015-09-13 18:49:48,759  INFO [main] - agh.project.Log4j.initComponents 233 - Write to data base
+2015-09-13 18:51:13,305  INFO [main] - agh.project.Log4j.initComponents 237 - Ready
+2015-09-13 19:00:28,548  INFO [main] - agh.project.Log4j.main 24 - Tworze plik Properties
+2015-09-13 19:00:28,565  INFO [main] - agh.project.Log4j.main 27 - Pobieram strony
+2015-09-13 19:00:29,921 ERROR [main] - agh.project.Log4j.readSettings 98 - java.util.NoSuchElementException: No line found
+java.util.NoSuchElementException: No line found
+	at java.util.Scanner.nextLine(Unknown Source)
+	at agh.project.Downloader.readSettings(Downloader.java:72)
+	at agh.project.main.Main.main(Main.java:28)
+2015-09-13 19:00:29,925  INFO [main] - agh.project.Log4j.main 30 - Otwieram okno
+2015-09-13 19:00:31,273  INFO [main] - agh.project.Log4j.initComponents 222 - Parsing
+2015-09-13 19:00:33,487  INFO [main] - agh.project.Log4j.initComponents 229 - Creating data base
+2015-09-13 19:00:37,737  INFO [main] - agh.project.Log4j.initComponents 233 - Write to data base
+2015-09-13 19:01:43,889  INFO [main] - agh.project.Log4j.initComponents 237 - Ready
+2015-09-13 19:01:53,186  INFO [AWT-EventQueue-0] - agh.project.Log4j.readFromDataBase 365 - Read from data base
+2015-09-13 19:01:53,195  INFO [AWT-EventQueue-0] - agh.project.Log4j.readFromDataBase 375 - Print in GUI TextArea
+2015-09-13 19:02:23,515  INFO [AWT-EventQueue-0] - agh.project.Log4j.readFromDataBase 365 - Read from data base
+2015-09-13 19:02:23,517  INFO [AWT-EventQueue-0] - agh.project.Log4j.readFromDataBase 375 - Print in GUI TextArea
+2015-09-13 19:04:32,835  INFO [main] - agh.project.Log4j.main 24 - Tworze plik Properties
+2015-09-13 19:04:32,853  INFO [main] - agh.project.Log4j.main 27 - Pobieram strony
+2015-09-13 19:04:35,379  INFO [main] - agh.project.Log4j.main 30 - Otwieram okno
+2015-09-13 19:04:40,596  INFO [main] - agh.project.Log4j.initComponents 222 - Parsing
+2015-09-13 19:04:41,004  INFO [main] - agh.project.Log4j.initComponents 229 - Creating data base
+2015-09-13 19:04:46,859  INFO [main] - agh.project.Log4j.initComponents 233 - Write to data base
+2015-09-13 19:05:40,848  INFO [main] - agh.project.Log4j.initComponents 237 - Ready
+2015-09-13 19:06:29,600  INFO [main] - agh.project.Log4j.main 24 - Creating 'poperties' file
+2015-09-13 19:06:29,613  INFO [main] - agh.project.Log4j.main 27 - Downloading websites sources
+2015-09-13 19:06:34,520  INFO [main] - agh.project.Log4j.initComponents 222 - Parsing
+2015-09-13 19:06:36,226  INFO [main] - agh.project.Log4j.initComponents 229 - Creating data base
+2015-09-13 19:06:40,300  INFO [main] - agh.project.Log4j.initComponents 233 - Write to data base
+2015-09-13 19:07:58,141  INFO [main] - agh.project.Log4j.initComponents 237 - Opening GUI window
+2015-09-13 19:08:14,045  INFO [AWT-EventQueue-0] - agh.project.Log4j.readFromDataBase 365 - Read from data base
+2015-09-13 19:08:14,048  INFO [AWT-EventQueue-0] - agh.project.Log4j.readFromDataBase 375 - Print in GUI TextArea
+2015-09-13 22:25:38,573 ERROR [main] - agh.project.ParserPackage.LoadFile 105 - Could not find file Eutelsat36A
+2015-09-13 22:25:38,596 ERROR [main] - agh.project.ParserPackage.LoadFile 105 - Could not find file Eutelsat36A
+2015-09-13 22:25:53,098  INFO [main] - agh.project.ParserPackage.ParsePackages 134 - Satelite parsed successfully
+2015-09-13 22:26:08,646  INFO [main] - agh.project.ParserPackage.ParsePackages 134 - Satelite parsed successfully
+2015-09-13 22:28:21,764  INFO [main] - agh.project.ParserPackage.ParsePackages 134 - Satelite parsed successfully
+2015-09-13 22:29:24,817  INFO [main] - agh.project.ParserPackage.ParsePackages 137 - Satelite parsed successfully
+2015-09-13 22:29:51,220  INFO [main] - agh.project.ParserPackage.ParsePackages 134 - Satelite parsed successfully
+2015-09-13 22:33:35,157  INFO [main] - agh.project.ParserPackage.ParsePackages 134 - Satelite parsed successfully
+2015-09-13 22:34:18,680  INFO [main] - agh.project.ParserPackage.ParsePackages 138 - Satelite parsed successfully
+2015-09-13 22:34:30,258  INFO [main] - agh.project.ParserPackage.ParsePackages 136 - Satelite parsed successfully
+2015-09-13 22:36:50,367  INFO [main] - agh.project.ParserPackage.ParsePackages 136 - Satelite parsed successfully
+2015-09-13 22:38:37,613  INFO [main] - agh.project.ParserPackage.ParsePackages 136 - Satelite parsed successfully
+2015-09-13 22:38:54,583  INFO [main] - agh.project.ParserPackage.ParsePackages 134 - Satelite parsed successfully
+2015-09-13 22:39:08,824  INFO [main] - agh.project.ParserPackage.ParsePackages 134 - Satelite parsed successfully
+2015-09-13 22:52:03,703  INFO [main] - agh.project.ParserPackage.ParsePackages 135 - Satelite parsed successfully
+2015-09-13 22:52:12,703  INFO [main] - agh.project.ParserPackage.ParsePackages 135 - Satelite parsed successfully
+2015-09-13 22:52:32,670  INFO [main] - agh.project.ParserPackage.ParsePackages 135 - Satelite parsed successfully
+2015-09-13 22:52:53,828  INFO [main] - agh.project.ParserPackage.ParsePackages 135 - Satelite parsed successfully
+2015-09-13 22:53:23,299  INFO [main] - agh.project.ParserPackage.ParsePackages 137 - Satelite parsed successfully
+2015-09-13 22:54:36,329  INFO [main] - agh.project.ParserPackage.ParsePackages 135 - Satelite parsed successfully
+2015-09-13 22:57:09,080  INFO [main] - agh.project.ParserPackage.ParsePackages 137 - Satelite parsed successfully
+2015-09-13 22:57:52,705  INFO [main] - agh.project.ParserPackage.ParsePackages 137 - Satelite parsed successfully
+2015-09-13 22:58:08,936  INFO [main] - agh.project.ParserPackage.ParsePackages 137 - Satelite parsed successfully
+2015-09-13 22:58:28,194  INFO [main] - agh.project.ParserPackage.ParsePackages 137 - Satelite parsed successfully
+2015-09-13 23:01:32,185  INFO [main] - agh.project.ParserPackage.ParsePackages 137 - Satelite parsed successfully
+2015-09-13 23:01:42,161  INFO [main] - agh.project.ParserPackage.ParsePackages 137 - Satelite parsed successfully
+2015-09-13 23:01:54,603  INFO [main] - agh.project.ParserPackage.ParsePackages 137 - Satelite parsed successfully
+2015-09-13 23:02:57,392  INFO [main] - agh.project.ParserPackage.ParsePackages 137 - Satelite parsed successfully
+2015-09-13 23:03:12,891  INFO [main] - agh.project.ParserPackage.ParsePackages 137 - Satelite parsed successfully
+2015-09-13 23:03:28,399  INFO [main] - agh.project.ParserPackage.ParsePackages 137 - Satelite parsed successfully
+2015-09-13 23:07:46,996  INFO [main] - agh.project.ParserPackage.ParsePackages 137 - Satelite parsed successfully
+2015-09-13 23:11:11,479  INFO [main] - agh.project.ParserPackage.ParsePackages 137 - Satelite parsed successfully
+2015-09-13 23:14:19,617  INFO [main] - agh.project.ParserPackage.ParsePackages 137 - Satelite parsed successfully
+2015-09-13 23:34:43,414  INFO [main] - agh.project.ParserPackage.ParsePackages 139 - Satelite parsed successfully
+2015-09-13 23:34:43,517  INFO [main] - agh.project.ParserPackage.ParseChannels 299 - Channels parsed successfully
+2015-09-13 23:34:43,523  INFO [main] - agh.project.ParserPackage.SaveToFile 330 - File Eutelsat 36A.txt created successfully
+2015-09-13 23:41:37,113  INFO [main] - agh.project.ParserPackage.ParsePackages 139 - Satelite parsed successfully
+2015-09-13 23:41:37,235  INFO [main] - agh.project.ParserPackage.ParseChannels 299 - Channels parsed successfully
+2015-09-13 23:41:37,237  INFO [main] - agh.project.ParserPackage.SaveToFile 330 - File Eutelsat 36A.txt created successfully
+2015-09-13 23:49:39,240  INFO [main] - agh.project.ParserPackage.ParsePackages 147 - Satelite parsed successfully
+2015-09-13 23:49:39,338  INFO [main] - agh.project.ParserPackage.ParseChannels 307 - Channels parsed successfully
+2015-09-13 23:49:39,340  INFO [main] - agh.project.ParserPackage.SaveToFile 338 - File Eutelsat 36A.txt created successfully
+2015-09-13 23:50:34,644  INFO [main] - agh.project.ParserPackage.ParsePackages 147 - Satelite parsed successfully
+2015-09-13 23:50:34,813  INFO [main] - agh.project.ParserPackage.ParseChannels 307 - Channels parsed successfully
+2015-09-13 23:50:34,816  INFO [main] - agh.project.ParserPackage.SaveToFile 338 - File Eutelsat 36A.txt created successfully
+2015-09-13 23:51:34,946  INFO [main] - agh.project.ParserPackage.ParsePackages 147 - Satelite parsed successfully
+2015-09-13 23:52:59,999  INFO [main] - agh.project.ParserPackage.ParsePackages 148 - Satelite parsed successfully
+2015-09-13 23:53:46,321  INFO [main] - agh.project.ParserPackage.ParsePackages 148 - Satelite parsed successfully
+2015-09-13 23:53:55,260  INFO [main] - agh.project.ParserPackage.ParsePackages 148 - Satelite parsed successfully
+2015-09-13 23:57:05,340  INFO [main] - agh.project.ParserPackage.ParsePackages 149 - Satelite parsed successfully
+2015-09-13 23:57:18,105  INFO [main] - agh.project.ParserPackage.ParsePackages 149 - Satelite parsed successfully
+2015-09-13 23:57:28,905  INFO [main] - agh.project.ParserPackage.ParsePackages 149 - Satelite parsed successfully
+2015-09-13 23:57:36,846  INFO [main] - agh.project.ParserPackage.ParsePackages 149 - Satelite parsed successfully
+2015-09-13 23:58:02,160  INFO [main] - agh.project.ParserPackage.ParsePackages 149 - Satelite parsed successfully
+2015-09-13 23:58:22,256  INFO [main] - agh.project.ParserPackage.ParsePackages 149 - Satelite parsed successfully
+2015-09-13 23:58:28,815  INFO [main] - agh.project.ParserPackage.ParsePackages 149 - Satelite parsed successfully
+2015-09-13 23:58:35,390  INFO [main] - agh.project.ParserPackage.ParsePackages 149 - Satelite parsed successfully
+2015-09-13 23:58:42,238  INFO [main] - agh.project.ParserPackage.ParsePackages 149 - Satelite parsed successfully
+2015-09-13 23:58:51,108  INFO [main] - agh.project.ParserPackage.ParsePackages 149 - Satelite parsed successfully
+2015-09-13 23:58:57,062  INFO [main] - agh.project.ParserPackage.ParsePackages 149 - Satelite parsed successfully
+2015-09-13 23:59:51,180  INFO [main] - agh.project.ParserPackage.ParsePackages 149 - Satelite parsed successfully

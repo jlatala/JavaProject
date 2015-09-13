@@ -4,6 +4,7 @@ import java.util.List;
 
 import agh.project.Downloader;
 import agh.project.Parser;
+import agh.project.ParserPackage;
 import agh.project.SQLite;
 import agh.project.Satellites;
 import agh.project.Properties;
@@ -56,6 +57,8 @@ public class Main {
 		
 		//dataBase.deleteTables();
 		//dataBase.closeConnection();
+		
+		
 		
 		
 	}

@@ -109,4 +109,11 @@ public class SQLite {
         	Log4j.log.error(e, e);
         }
     }
+    
+    protected void finalize( )
+    {
+    	Log4j.log.info("Close");		
+		closeConnection();
+    }
+    
 }

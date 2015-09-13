@@ -1,4 +1,4 @@
-Properties
+List of websites to download with their parameters.
 
 ***asia***
 url http://www.lyngsat.com/asia.html
@@ -14,5 +14,21 @@ timeout 3
 try 3
 ***america***
 url http://www.lyngsat.com/america.html
+timeout 3
+try 3
+***asiaPac***
+url http://www.lyngsat.com/packages/asia.html
+timeout 3
+try 3
+***europePac***
+url http://www.lyngsat.com/packages/europe.html
+timeout 3
+try 3
+***atlanticPac***
+url http://www.lyngsat.com/packages/atlantic.html
+timeout 3
+try 3
+***americaPac***
+url http://www.lyngsat.com/packages/america.html
 timeout 3
 try 3

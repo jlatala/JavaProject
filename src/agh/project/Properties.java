@@ -11,16 +11,23 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.Vector;
 
-
+/**
+ * This class 
+ * @author Jakub Latala
+ * @version 1.0
+ */
 public class Properties {
-	public static Vector<String> regions = new Vector<String>();	//do pozniejszego uzycia(wskazuje wybrane przez uzytkownika regiony)
+	
 	static final String name="";
 	public static String region[] = {"asia", "europe", "atlantic", "america"};
 	
 	public static void initProp() throws IOException{	
 		createProp();
 		for(int i=0;i<4;i++){
-			addWebsite(region[i], 3, 3);
+			addWebsite(region[i], "", "http://www.lyngsat.com/", 3, 3);
+		}
+		for(int i=0;i<4;i++){
+			addWebsite(region[i], "Pac", "http://www.lyngsat.com/packages/", 3, 3);
 		}
 	}
 	
@@ -28,7 +35,7 @@ public class Properties {
 		deleteProp();
 		FileWriter wr = new FileWriter("src/agh/project/properties.txt");
 		PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("src/agh/project/properties.txt", true)));
-		out.println("Properties");
+		out.println("List of websites to download with their parameters.");
 		out.close();
 		wr.close();
 	}
@@ -38,14 +45,14 @@ public class Properties {
 		prop.delete();
 	}
 	
-	public static void addWebsite(String url, int timeout, int attempts) throws IOException{
+	public static void addWebsite(String regName, String regNamePac, String url, int timeout, int attempts) throws IOException{
 		try(PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("src/agh/project/properties.txt", true)))) {
 			out.println();
-		    out.println("***"+url+"***");		    
-		    out.println("url http://www.lyngsat.com/"+url+".html");
+		    out.println("***"+regName+regNamePac+"***");		    
+		    out.println("url "+url+regName+".html");
 		    out.println("timeout "+timeout);
 		    out.print("try "+attempts);
-			regions.add(url);
+			
 		    out.close();
 		}catch (IOException e) {
 			Log4j.log.error(e, e);
