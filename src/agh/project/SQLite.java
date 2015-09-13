@@ -1,5 +1,6 @@
 package agh.project;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -9,7 +10,6 @@ import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
 
- 
 public class SQLite {
  
     public static final String DRIVER = "org.sqlite.JDBC";
@@ -17,91 +17,96 @@ public class SQLite {
  
     private Connection conn;
     private Statement stat;
- 
+    
+    //inicjalizacja bazy danych SQLtie
     public SQLite() {
         try {
             Class.forName(SQLite.DRIVER);
         } catch (ClassNotFoundException e) {
-            System.err.println("Lack of driver JDBC");
-            e.printStackTrace();
+        	Log4j.log.error("Lack of driver JDBC");
+            Log4j.log.error(e, e);
         }
  
         try {
             conn = DriverManager.getConnection(DB_URL);
             stat = conn.createStatement();
         } catch (SQLException e) {
-            System.err.println("Cannot open connection");
-            e.printStackTrace();
+        	Log4j.log.error("Cannot open connection");
+            Log4j.log.error(e, e);
         }
  
-        createTables();
+        createTables("Satellites", "Name varchar(255), Coordinates double, EW varchar(255), Last_Update varchar(255)");
     }
- 
-    public boolean createTables()  {
-        String createSatellites = "CREATE TABLE IF NOT EXISTS satellites (coordinates varchar(255), names varchar(255), last_update varchar(255))";
+    //tworzenie naszej tabeli
+    public boolean createTables(String TableName, String Columns)  {
+        String createSatellites = "CREATE TABLE IF NOT EXISTS "+TableName+" ("+Columns+")";
         try {
             stat.execute(createSatellites);  
         } catch (SQLException e) {
-            System.err.println("Error during creating table");
-            e.printStackTrace();
+        	Log4j.log.error("Error during creating table");
+        	Log4j.log.error(e, e);
             return false;
         }
         return true;
     }
-    
-    public boolean deteleTables()  {
+    //usuwanie tabeli, analogicznie do tworzenia
+    public boolean deleteTables()  {
         String deleteSatellites = "DELETE FROM satellites";
-    	//String deleteSatellites = "DROP TABLE IF EXISTS satellites";
         try {
             stat.execute(deleteSatellites);  
         } catch (SQLException e) {
-            System.err.println("Error during deleting table");
-            e.printStackTrace();
-            return false;
+        	Log4j.log.error("Error during deleting table");
+        	Log4j.log.error(e, e);
+        	return false;
         }
         return true;
     }
- 
-    public boolean insertSatellites(String coordinate, String name, String last_updt) {
+    //dodawanie jednego rekordu
+    public boolean insertSatellites(String Name, Double Coordinates, String EW, String Last_Updt) {
         try {
             PreparedStatement prepStmt = conn.prepareStatement(
-                    "insert into satellites values (?, ?, ?);");
-            prepStmt.setString(1, coordinate);
-            prepStmt.setString(2, name);
-            prepStmt.setString(3, last_updt);
+                    "insert into satellites values (?, ?, ?, ?);");
+            prepStmt.setString(1, Name);
+            prepStmt.setDouble(2, Coordinates);
+            prepStmt.setString(3, EW);
+            prepStmt.setString(4, Last_Updt);            
             prepStmt.execute();
         } catch (SQLException e) {
-            System.err.println("Error during inserting satellite");
-            e.printStackTrace();
-            return false;
+        	Log4j.log.error("Error during inserting satellite");
+        	Log4j.log.error(e, e);
+        	return false;
         }
         return true;
     }
- 
-    public List<Satellites> selectSatellites() {
+    //zwracanie bazy z postaci listy
+    public List<Satellites> selectSatellites(String sqlQuery) {
         List<Satellites> satellites = new LinkedList<Satellites>();
         try {
-            ResultSet result = stat.executeQuery("SELECT * FROM satellites WHERE SUBSTRING(coordinates, 0, coordinates.length()-2) > 120");
-            String coordinate, name, last_updt;
+        	ResultSet result = stat.executeQuery(sqlQuery);
+            
+            String Name, EW, Last_Updt;
+            Double Coordinates;
             while(result.next()) {
-                coordinate = result.getString("coordinates");
-                name = result.getString("names");
-                last_updt = result.getString("last_update");               
-                satellites.add(new Satellites(coordinate, name, last_updt));
+                Name = result.getString("Name");
+                Coordinates = result.getDouble("Coordinates");
+                EW = result.getString("EW");   
+                Last_Updt = result.getString("Last_Update");
+                satellites.add(new Satellites(Name, Coordinates, EW, Last_Updt));
             }
         } catch (SQLException e) {
+        	Log4j.log.error(e, e);
             e.printStackTrace();
             return null;
         }
         return satellites;
     }
- 
+    //konczenie pracy z baza
     public void closeConnection() {
         try {
             conn.close();
         } catch (SQLException e) {
-            System.err.println("Error during closing connection");
-            e.printStackTrace();
+        	Log4j.log.error("Error during closing connection");
+        	Log4j.log.error(e, e);
         }
     }
 }
