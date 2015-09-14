@@ -1,5 +1,6 @@
 package agh.project;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -408,18 +409,24 @@ public class GUI extends javax.swing.JFrame {
 		ParserPackage[] parP2 = new ParserPackage[parP.link.size()];
 		String name;
 		for(int j=0;j<parP.link.size();j++){
-			 name = parP.link.get(j).substring("http://www.lyngsat.com/packages/".length(), parP.link.get(j).length()-5);
+			try{
+			 name = parP.satellite.get(j).substring("http://www.lyngsat.com/".length(), parP.satellite.get(j).length()-5);
+			 File f = new File("channelsSources/"+name+".html");
+			 if(!f.exists()){continue;}
 			 parP2[j] = new ParserPackage("channelsSources/"+name+".html");		
 			 parP2[j].ParseChannels();
 			 parP2[j].SaveToFile("channels/"+name+".txt");
+			}
+			catch(java.lang.NullPointerException e){
+				//Log4j.log.error(e);
+				continue;
+			}
 			}
 		}
 		catch(java.lang.OutOfMemoryError e){
 			//Log4j.log.error(e);
 		}
-		catch(java.lang.NullPointerException e){
-			//Log4j.log.error(e);
-		}
+		
 		Log4j.log.info("Downloading complete");
     } 
     /**

@@ -177,9 +177,12 @@ public class Downloader implements Runnable{
 			}
 			catch(java.net.UnknownHostException e){
 				Log4j.log.error("Unknown website");
-				Log4j.log.error(e, e);
-				
-			} catch (MalformedURLException e1) {
+				Log4j.log.error(e, e);	
+			} 
+			catch(java.lang.NullPointerException e){
+				//Log4j.log.error(e);
+			}
+			catch (MalformedURLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			} catch (IOException e1) {

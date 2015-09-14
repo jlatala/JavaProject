@@ -317,7 +317,7 @@ public class ParserPackage {
 
 			writer.close();
 
-			Log4j.log.info("File " + file_name + " created successfully");
+			//Log4j.log.info("File " + file_name + " created successfully");
 		} catch (FileNotFoundException e) {
 			Log4j.log.error("File not found");
 		} catch (IOException e) {

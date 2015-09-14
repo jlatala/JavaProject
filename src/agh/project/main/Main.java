@@ -24,7 +24,9 @@ public class Main {
 	 * @throws IOException
 	 */
 		public static void main(String[] args) throws IOException {
-		
+		File f1 = new File("src\\agh\\project"); f1.mkdirs();
+		File f2 = new File("channels"); f2.mkdirs();
+		File f3 = new File("channelsSources"); f3.mkdirs();
 		Log4j.log.info("Creating 'poperties' file");
 		Properties.initProp();
 		//Properties.deleteWebsite("***europe***");
