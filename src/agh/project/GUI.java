@@ -48,7 +48,7 @@ public class GUI extends javax.swing.JFrame {
 		MinE = 180.0;
     	
     	String TmpText = new String("");
-    	DataBase.Content = new SQLite();
+
 		Downloader.readSettings();
 		DownloaderPool.DownloadedContent = new String[Downloader.Website.size()];
 		//while(!DownloaderPool.Done);
@@ -201,6 +201,7 @@ public class GUI extends javax.swing.JFrame {
             @Override
             public void windowClosing(java.awt.event.WindowEvent windowEvent) {              
             	DataBase.Close();
+            	Log4j.log.info("DataBase Closed and Deleted");
             	System.exit(0);           
             }
         });
@@ -286,7 +287,7 @@ public class GUI extends javax.swing.JFrame {
                 .addComponent(TextFieldScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
-
+        Log4j.log.info("GUI Initiated");
         pack();
     }// </editor-fold>                        
 
@@ -332,6 +333,7 @@ public class GUI extends javax.swing.JFrame {
     		}
     		
         	TextField.setText(tmp);
+        	Log4j.log.info("Range Selected");
     		
     		
     }                                       
@@ -394,6 +396,7 @@ public class GUI extends javax.swing.JFrame {
     private void DownloadButtonMouseClicked(java.awt.event.MouseEvent evt) {                                            
         // TODO add your handling code here:
     	//DownloaderPool.DownloadedContent=null;
+    	DataBase.Content = new SQLite();
     	for (int i=0; i<Downloader.Website.size();i++)
     	{
     		DownloaderPool.Done=false;
@@ -454,7 +457,7 @@ public class GUI extends javax.swing.JFrame {
 			
 
 		TextField.setText(tmp);
-		
+		Log4j.log.info("Websites downloaded and parsed");
 		//ResultSet result = stat.executeQuery(Command)
 		
 		//Satellites S1 = new Sattelites();
@@ -467,6 +470,9 @@ public class GUI extends javax.swing.JFrame {
     
     private void DeleteDBMouseClicked(java.awt.event.MouseEvent evt) {                                      
         // TODO add your handling code here:
+    	DataBase.Close();
+    	TextField.setText("");
+    	Log4j.log.info("DataBase Closed, ");
     }                                     
 
     

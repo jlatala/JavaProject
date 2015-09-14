@@ -4,18 +4,19 @@ import java.util.List;
 
 import agh.project.DownloaderPool;
 import agh.project.GUI;
+import agh.project.Log4j;
 import agh.project.Parser;
 import agh.project.SQLite;
 import agh.project.Satellites;
 public class Test {
 
 	
-		public static String HugeText;
-		public static SQLite DataBase;
+		//public static String HugeText;
+		//public static SQLite DataBase;
 		// TODO Auto-generated method stub
 		public static void main(String[] args) throws IOException {
 			
-		HugeText = new String();
+		//HugeText = new String();
 		//DownloaderPool.run();
 		//while(!DownloaderPool.Done);
 
@@ -36,6 +37,7 @@ public class Test {
 		//System.out.println(HugeText);
 		//HugeText = "Benjamin";
 		//while (HugeText ==null);
+		Log4j.log.info("Application started");
 		GUI G1 = new GUI();
 		G1.setVisible(true);
 		G1.setResizable(false);
