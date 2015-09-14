@@ -8,18 +8,27 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.Vector;
 
+/**
+ * This class is responsible for parsing website with list of satellites.
+ * @author Jakub Latala
+ *
+ */
 public class Parser {
 	public static Vector<Double> Coordinates = new Vector<Double>();
 	public static Vector<String> EW = new Vector<String>();	
 	public static Vector<String> Name = new Vector<String>();
 	public static Vector<String> Last_Update = new Vector<String>();
 
+	/**
+	 * Parse website to vectors.
+	 * @param file_path path to downloaded website source
+	 * @throws IOException
+	 */
 	public static void run(String file_path) throws IOException{
 		File input = new File(file_path);
 		org.jsoup.nodes.Document doc = Jsoup.parse(input, "UTF-8");
 		
-		//TA CZESC POLEGA NA PRZESKAKIWANIU PO KOLEJNYCH TAGACH PLIKU HTML I WYCIAGANIU ODPOWIEDNICH 
-		//DANYCH (TEKSTU), A NASTEPNIE ZAPISANIU ICH DO NASZYCH ATRYBUTOW (WEKTOROW KLASY).
+		
 		Element table = doc.select("body").first();
 
 		Iterator<Element> ite = table.select("table[width=720]").iterator();

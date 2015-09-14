@@ -10,6 +10,11 @@ import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * This class is responsible for all database operations.
+ * @author Jakub Latala
+ *
+ */
 public class SQLite {
  
     public static final String DRIVER = "org.sqlite.JDBC";
@@ -18,7 +23,9 @@ public class SQLite {
     private Connection conn;
     private Statement stat;
     
-    //inicjalizacja bazy danych SQLtie
+    /**
+     * SQLite database initialization.
+     */
     public SQLite() {
         try {
             Class.forName(SQLite.DRIVER);
@@ -37,7 +44,13 @@ public class SQLite {
  
         createTables("Satellites", "Name varchar(255), Coordinates double, EW varchar(255), Last_Update varchar(255)");
     }
-    //tworzenie naszej tabeli
+
+    /**
+     * Creates new table
+     * @param TableName table name
+     * @param Columns name of database and all columns
+     * @return
+     */
     public boolean createTables(String TableName, String Columns)  {
         String createSatellites = "CREATE TABLE IF NOT EXISTS "+TableName+" ("+Columns+")";
         try {
@@ -49,7 +62,10 @@ public class SQLite {
         }
         return true;
     }
-    //usuwanie tabeli, analogicznie do tworzenia
+    /**
+     * Delete all satellites from table.
+     * @return
+     */
     public boolean deleteTables()  {
         String deleteSatellites = "DELETE FROM satellites";
         try {
@@ -61,7 +77,15 @@ public class SQLite {
         }
         return true;
     }
-    //dodawanie jednego rekordu
+
+    /**
+     * Adds new satellite to database.
+     * @param Name name
+     * @param Coordinates coordinates
+     * @param EW east/west
+     * @param Last_Updt last update
+     * @return true, if insert succeed
+     */
     public boolean insertSatellites(String Name, Double Coordinates, String EW, String Last_Updt) {
         try {
             PreparedStatement prepStmt = conn.prepareStatement(
@@ -78,7 +102,12 @@ public class SQLite {
         }
         return true;
     }
-    //zwracanie bazy z postaci listy
+    
+    /**
+     * Return all database as list of satellites
+     * @param sqlQuery SQL query
+     * @return
+     */
     public List<Satellites> selectSatellites(String sqlQuery) {
         List<Satellites> satellites = new LinkedList<Satellites>();
         try {
@@ -100,7 +129,10 @@ public class SQLite {
         }
         return satellites;
     }
-    //konczenie pracy z baza
+    
+    /**
+     * End connection with database
+     */
     public void closeConnection() {
         try {
             conn.close();
@@ -110,6 +142,9 @@ public class SQLite {
         }
     }
     
+    /**
+     * Close database connection before destroy object
+     */
     protected void finalize( )
     {
     	Log4j.log.info("Close");		

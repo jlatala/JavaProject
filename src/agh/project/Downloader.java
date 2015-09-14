@@ -1,16 +1,41 @@
 package agh.project;
 import java.io.*;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.List;
 import java.util.Scanner;
 
-public class Downloader {
+/**
+ * This class is responsible for reading from propersiet.txt file and downloading website sources.
+ * @author Jakub Latala
+ *
+ */
+public class Downloader implements Runnable{
 	
 	static String Name;
 	static URL Website;
 	static Integer Timeout;
 	static Integer Tries;
+	static List<String> urlStr;
+	Integer Instance;
 	
+	/**
+	 * Constructor for multithreading downloading
+	 * @param _Instance instance of Downloader
+	 * @param s lyngsat url
+	 */
+	Downloader(Integer _Instance, List<String> s)
+	{
+		Instance = _Instance;
+		urlStr = s;
+	}
+	
+	/**
+	 * Download website source
+	 * @return string path
+	 * @throws IOException
+	 */
 	public static String download() throws IOException{
 		try{
 		Reader reader=null;
@@ -18,7 +43,7 @@ public class Downloader {
 		BufferedReader bufferedreader;
 		URLConnection connection = null;
 		String content = null, tmp = null;
-		//readSettings();
+		
 		connection = Website.openConnection();
 		connection.setConnectTimeout(Timeout*1000);
 
@@ -60,6 +85,10 @@ public class Downloader {
 		}
 	}
 	
+	/**
+	 * Read from properties.txt file
+	 * @throws IOException
+	 */
 	public static void readSettings() throws IOException
 	{
 		File properties = new File("src/agh/project/properties.txt");
@@ -100,5 +129,65 @@ public class Downloader {
 		}
 
 	}
+	
+	/**
+	 * Method for multithreading downloading
+	 */
+	@Override
+	public void run() {
+		try{
+			Reader reader=null;
+			InputStream stream = null;
+			BufferedReader bufferedreader;
+			URLConnection connection = null;
+			String content = null, tmp = null;
+			
+			URL url = new  URL(urlStr.get(Instance));
+			connection = url.openConnection();
+			//connection.setConnectTimeout(3000);
+
+			
+			try{
+				stream = connection.getInputStream();
+			}
+			catch(java.net.SocketTimeoutException e)
+			{
+				Log4j.log.error("Cannot download channel website");
+				Log4j.log.error(e, e);
+			}
+			catch(java.io.FileNotFoundException e)
+			{
+				//Log4j.log.error(e);
+			}
+			
+		
+			String path = "channelsSources/"+urlStr.get(Instance).substring("http://www.lyngsat.com/".length());
+			reader = new InputStreamReader(stream);
+			bufferedreader = new BufferedReader(reader);
+			BufferedWriter writer = new BufferedWriter(new FileWriter(path));
+			String line;
+			while ((line=bufferedreader.readLine())!=null)
+			{
+				writer.write(line);
+				writer.newLine();
+			}
+			reader.close();
+			writer.close();
+			Log4j.log.info("Download succeed, "+path);
+			}
+			catch(java.net.UnknownHostException e){
+				Log4j.log.error("Unknown website");
+				Log4j.log.error(e, e);
+				
+			} catch (MalformedURLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}		
+	}
+	
+	
 	
 }

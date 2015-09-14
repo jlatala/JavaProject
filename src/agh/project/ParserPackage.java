@@ -1,9 +1,3 @@
-/**
- * Projekt Java 
- * Micha³ Zajdel 258965
- * Temat: 1A5. Kana³y satelitarne (www.lyngsat.com HOTBIRD pakiety) - zapis txt
- */
-
 package agh.project;
 
 import org.apache.log4j.Logger;
@@ -23,107 +17,101 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * Klasa parsujace pobrane pliki
+ * This class is responsible for parsing downloaded files.
  * 
  * @author Jakub Latala
  */
 public class ParserPackage {
 	
-	public static void main(String[] args) throws IOException{	
-		Parser par = new Parser();
-		//par.run("asia.html");
-		par.run("europe.html");
-		
-		ParserPackage parP = new ParserPackage("europePac.html");
-		parP.LoadFile();
-		
-		for(int j=0;j<par.Name.size();j++){
-			if(j!=0 && par.Name.elementAt(j)!=par.Name.elementAt(j-1))
-				parP.ParsePackages(par.Name.elementAt(j));
-		}
-		for(int i=0;i<parP.satelita.size();i++)
-			System.out.println(parP.Stopnie(i));
-		System.out.println(parP.CheckboxSize());
-		ParserPackage parP2 = new ParserPackage("EutelsatHotBird.html");		
-		parP2.ParseChannels();
-		parP2.SaveToFile("channels/Eutelsat Hot Bird 13B.txt");
-	}
-	
-	/** nazwa satelity */
-	private List<String> satelita = new ArrayList<String>();
-	/** nazwa pakietu */
-	private List<String> pakiet = new ArrayList<String>();
-	/** adres strony pakietu */
-	private List<String> link = new ArrayList<String>();
-	/** data modyfikacji */
-	private List<String> update = new ArrayList<String>();
-	/** pozycja orbitalna */
-	private List<String> stopnie = new ArrayList<String>();
-	/** suma nazw do checkboxa w gui */
-	private List<String> checkbox = new ArrayList<String>();
 
-	/** nazwa kanalu */
-	private List<String> ChannelName = new ArrayList<String>();
-	/** cechy */
-	private List<String> Features = new ArrayList<String>();
-	/** szyfrowanie */
-	private List<String> Encryption = new ArrayList<String>();
-	/** numer kanalu */
-	private List<String> ChNo = new ArrayList<String>();
-	/** sid */
-	private List<String> SID = new ArrayList<String>();
-	/** vpid */
-	private List<String> VPID = new ArrayList<String>();
-	/** apid */
-	private List<String> APID = new ArrayList<String>();
-	/** czestotliwosc */
-	private List<String> Frequency = new ArrayList<String>();
-	/** suma nazw zwiazanych z kanalami */
-	private List<String> Final = new ArrayList<String>();
+	
+	/** name of satellite */
+	public List<String> satellite = new ArrayList<String>();
+	/** name of package */
+	public List<String> pack = new ArrayList<String>();
+	/** url of package */
+	public List<String> link = new ArrayList<String>();
+	/** last update */
+	public List<String> update = new ArrayList<String>();
+	/** coordinates */
+	public List<String> coordinate = new ArrayList<String>();
+	/** all parameters as string */
+	public List<String> sum = new ArrayList<String>();
+
+	/** name of channel */
+	public List<String> ChannelName = new ArrayList<String>();
+	/** features */
+	public List<String> Features = new ArrayList<String>();
+	/** encryption */
+	public List<String> Encryption = new ArrayList<String>();
+	/** ChNo */
+	public List<String> ChNo = new ArrayList<String>();
+	/** SID */
+	public List<String> SID = new ArrayList<String>();
+	/** VPID */
+	public List<String> VPID = new ArrayList<String>();
+	/** APID */
+	public List<String> APID = new ArrayList<String>();
+	/** frequency */
+	public List<String> Frequency = new ArrayList<String>();
+	/** all channels as string */
+	public List<String> Final = new ArrayList<String>();
 
 	/** SD/clear */
-	private String SD_cl;
+	public String SD_cl;
 	/** SD/encrypted */
-	private String SD_en;
+	public String SD_en;
 	/** HD/clear */
-	private String HD_cl;
+	public String HD_cl;
 	/** HD/encrypted */
-	private String HD_en;
+	public String HD_en;
 	/** interactive */
-	private String inter;
+	public String inter;
 
-	/** nazwa pliku parsowanego */
-	private String file;
-	/** tytul strony */
-	private String title;
-	/** ostatnia aktualiazacja */
-	private String upd;
-	/** dokument obslugiwany przez jsoup */
+	/** name of parsing file */
+	public String file;
+	/** title of website */
+	public String title;
+	/** last update */
+	public String upd;
+	/** document used by JSOUP */
 	Document doc;
 
-	/** logger */
-	public static final Logger log = Logger.getLogger(ParserPackage.class);
+	
 
-	/** konstruktor pobierajacy nazwe pliku do parsowania */
+	/** Constructor, sets name of file */
 	public ParserPackage(String file) {
 		this.file = file;
 	}
+	
+	/**
+	 * Default constructor
+	 */
+	public ParserPackage(){;}
+	
+	/**
+	 * Sets name of file.
+	 * @param file
+	 */
+	public void setFilePath(String file){
+		this.file = file;
+	}
 
-	/** metoda ladujaca plik do parsowania */
+	/** Load a file. */
 	public Document LoadFile() {
 		File input = new File(file);
 		try {
 			doc = Jsoup.parse(input, "UTF-8");
 		} catch (IOException e) {
-			log.error("Could not find file " + file);
+			//Log4j.log.error("Could not find file " + file);
 		}
 		return doc;
 	}
 
 	/**
-	 * metoda parsujaca nazwy pakietow do listy
-	 * 
-	 * @return lista pelnych nazw pakietow
+	 * Parse list of packages.
+	 * @param SateliteName name of satellite
+	 * @return
 	 */
 	public List<String> ParsePackages(String SateliteName) {
 
@@ -134,57 +122,38 @@ public class ParserPackage {
 		int tmp = 0;
 		for (Element src : packages) {
 			// pobierz wartosci
-			satelita.add(src.select("td[width=220]").text());
-			pakiet.add(src.select("td[width=200]").text());
+			satellite.add("http://www.lyngsat.com/"+src.select("td[width=220]").text().replaceAll(" ", "-").replaceAll("&", "and").replaceAll("/", "-")+".html");
+			pack.add(src.select("td[width=200]").text());
 			link.add(src.select("td[width=200]").select("a").attr("href"));
 			update.add(src.select("td[width=50]").text());
-			stopnie.add(src.select("td[width=70]").text());
-			checkbox.add(stopnie.get(tmp) + " Satelita : " + satelita.get(tmp)
-					+ " -- Pakiet: " + pakiet.get(tmp)
+			coordinate.add(src.select("td[width=70]").text());
+			sum.add(coordinate.get(tmp) + " satellite : " + satellite.get(tmp)
+					+ " -- pack: " + pack.get(tmp)
 					+ " -- Data modyfikacji: " + update.get(tmp));
 			tmp++;
 		}
 		//log.info("Satelite parsed successfully");
-		return checkbox;
+		return sum;
 	}
 
 	/**
-	 * metoda zwracajaca wybrany pakiet
-	 * 
-	 * @return nazwa wybranego pakietu
+	 * Return package
+	 * @param i ID of package
+	 * @return
 	 */
-	public String Pakiet(int i) {
-		return pakiet.get(i);
-	}
-	
-	/**
-	 * metoda zwracajaca stopnie
-	 * 
-	 * @return stopnie wybranego pakietu
-	 */
-	public String Stopnie(int i) {
-		return link.get(i);
+	public String Pack(int i) {
+		return pack.get(i);
 	}
 	 
 	/**
-	 * metoda zwracajaca liste linkow do pakietow
-	 * 
-	 * @return lista linkow do pakietow
+	 * Returns list of urls.
+	 * @return
 	 */
 	public List<String> Link() {
 		return link;
 	}
 
-	/**
-	 * metoda zwracajaca liczbe elementow w liscie checkbox
-	 * 
-	 * @return liczba elementow listy pelnych nazw pakietow
-	 */
-	public int CheckboxSize() {
-		return checkbox.size();
-	}
-
-	/** metoda parsujaca kanaly z danych pakietow */
+	/** Parse channels from packages. */
 	public void ParseChannels() {
 		Elements packages = ((LoadFile().select("td[width=728]"))); // tabela z
 																	// programami
@@ -225,6 +194,7 @@ public class ParserPackage {
 		}
 
 		// petla pobierajaca dane atrybuty
+		try{
 		for (int i = 0; i < tr.size(); i++) {
 			Iterator<Element> ite;
 			if (tr.get(i)
@@ -241,16 +211,25 @@ public class ParserPackage {
 				for (int x = 0; x < a.size(); x++) {
 					b.add(a.get(x).attr("title"));
 				}
-
-				Features.add("Features: " + b);
-				Encryption.add("Encryption: " + ite.next().text());
-				ChNo.add("ChNo: " + ite.next().text());
-				SID.add("SID: " + ite.next().text());
-				//VPID.add("VPID: " + ite.next().text());
-				//APID.add("APID: " + ite.next().text());
+				
+					Features.add("Features: " + b);
+					Encryption.add("Encryption: " + ite.next().text());
+					ChNo.add("ChNo: " + ite.next().text());
+					SID.add("SID: " + ite.next().text());
+					//VPID.add("VPID: " + ite.next().text());
+					//APID.add("APID: " + ite.next().text());	
 			}
 		}
-
+		}
+		catch(java.util.NoSuchElementException e){
+			//Log4j.log.error(e);
+		}
+		catch(java.lang.IndexOutOfBoundsException e){
+			//Log4j.log.error(e);
+		}
+		
+		
+		try{
 		// petla skladajaca nazwy w calosc
 		for (int i = 0; i < ChannelName.size()-1; i++) {
 			Final.add((i + 1) + ". " + ChannelName.get(i)
@@ -263,7 +242,10 @@ public class ParserPackage {
 					//+ System.getProperty("line.separator") + Frequency.get(i)
 					+ System.getProperty("line.separator"));
 		}
-
+		}
+		catch(java.lang.IndexOutOfBoundsException e){
+			//Log4j.log.error(e);
+		}
 		// pobieranie kanalow SD/clear
 		Elements SD_clear = tr.select("td[bgcolor=#ffffbb]");
 		SD_cl = "SD/clear: ";
@@ -307,7 +289,7 @@ public class ParserPackage {
 		//log.info("Channels parsed successfully");
 	}
 
-	/** metoda zapisujaca wyniki parsowania kanalow kanalow do plikow */
+	/** Save channels informations to text files. */
 	public void SaveToFile(String file_name) {
 		Date data = new Date();
 		String sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(data);
@@ -335,11 +317,11 @@ public class ParserPackage {
 
 			writer.close();
 
-			log.info("File " + file_name + " created successfully");
+			Log4j.log.info("File " + file_name + " created successfully");
 		} catch (FileNotFoundException e) {
-			log.error("File not found");
+			Log4j.log.error("File not found");
 		} catch (IOException e) {
-			log.error("File " + file_name + " did not create");
+			Log4j.log.error("File " + file_name + " did not create");
 		}
 	}
 }

@@ -3,6 +3,11 @@ package agh.project;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * This is Graphical User Interface for SatelliteParser application.
+ * @author Jakub Latala
+ *
+ */
 public class GUI extends javax.swing.JFrame {
 
 	public Parser par;
@@ -42,7 +47,8 @@ public class GUI extends javax.swing.JFrame {
         myRadioButton1 = new javax.swing.JRadioButton();
         myRadioButton2 = new javax.swing.JRadioButton();
         myRadioButton3 = new javax.swing.JRadioButton();
-
+        channelsBut = new javax.swing.JButton();
+        
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Satelites (lyngsat.com)");
 
@@ -144,6 +150,18 @@ public class GUI extends javax.swing.JFrame {
             }
         });
 
+
+        channelsBut.setText("Download channels");
+        channelsBut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                try {
+					channelsButActionPerformed(evt);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -151,6 +169,7 @@ public class GUI extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(channelsBut)
                     .addComponent(myRadioButton1)
                     .addComponent(myRadioButton3)
                     .addGroup(layout.createSequentialGroup()
@@ -158,9 +177,7 @@ public class GUI extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(rangeLab))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(showBut))
+                        .addComponent(showBut)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(21, 21, 21)
@@ -213,7 +230,9 @@ public class GUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(showBut)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(channelsBut)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -221,10 +240,10 @@ public class GUI extends javax.swing.JFrame {
         
         Log4j.log.info("Parsing");
 		par = new Parser();
-		//par.run("asia.html");
+		par.run("asia.html");
 		par.run("europe.html");
-		//par.run("atlantic.html");
-		//par.run("america.html");
+		par.run("atlantic.html");
+		par.run("america.html");
         
 		Log4j.log.info("Creating data base");
 		dataBase = new SQLite();
@@ -237,6 +256,10 @@ public class GUI extends javax.swing.JFrame {
 		Log4j.log.info("Opening GUI window");
     }// </editor-fold>                        
 
+    /**
+     * Generate SQL queries.
+     * @return
+     */
     public String generateSQLQuery(){
     	String firstSign, secondSign, firstDirection, secondDirection;
     	if (this.comBox1.getSelectedIndex()==0){
@@ -270,6 +293,10 @@ public class GUI extends javax.swing.JFrame {
     	return query;
     }
     
+    /**
+     * Generate SQL queries for regions.
+     * @return
+     */
     private String generateSQLQueryRegion(){
     	String query = "SELECT * FROM satellites WHERE";
     	if(this.asiaBox.isSelected())
@@ -357,10 +384,55 @@ public class GUI extends javax.swing.JFrame {
         this.americaBox.setEnabled(true);
     }   
     
+    private void channelsButActionPerformed(java.awt.event.ActionEvent evt) throws IOException {                                            
+    	Log4j.log.info("Parsing packages");
+    	String[] pacName = {"europePac.html"};//{"asiaPac.html", "europePac.html", "atlanticPac.html", "americaPac.html"};
+    	ParserPackage parP = new ParserPackage();
+    	for(String pac : pacName){
+    		parP.setFilePath(pac);
+    		parP.LoadFile();
+    		for(int j=0;j<par.Name.size();j++){
+				parP.ParsePackages(par.Name.elementAt(j));
+    		}
+    	}
+
+		Log4j.log.info("Downloading channels");
+		//try{
+		DownloaderPool.run(parP);
+		//}
+		//catch(java.io.FileNotFoundException e){
+			//Log4j.log.error(e);
+		//}
+		try{
+		Log4j.log.info("Parsing channels");
+		ParserPackage[] parP2 = new ParserPackage[parP.link.size()];
+		String name;
+		for(int j=0;j<parP.link.size();j++){
+			 name = parP.link.get(j).substring("http://www.lyngsat.com/packages/".length(), parP.link.get(j).length()-5);
+			 parP2[j] = new ParserPackage("channelsSources/"+name+".html");		
+			 parP2[j].ParseChannels();
+			 parP2[j].SaveToFile("channels/"+name+".txt");
+			}
+		}
+		catch(java.lang.OutOfMemoryError e){
+			//Log4j.log.error(e);
+		}
+		catch(java.lang.NullPointerException e){
+			//Log4j.log.error(e);
+		}
+		Log4j.log.info("Downloading complete");
+    } 
+    /**
+     * Shows list of satellites in TextArea
+     * @param sat satellite
+     */
     public void showSatList(Satellites sat){
     	this.textArea.append(sat+"\n");
     }
 
+    /**
+     * Read from database
+     */
     public void readFromDataBase(){
     	Log4j.log.info("Read from data base");
     	List<Satellites> satellite = null;
@@ -383,6 +455,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JCheckBox americaBox;
     private javax.swing.JCheckBox asiaBox;
     private javax.swing.JCheckBox atlanticBox;
+    private javax.swing.JButton channelsBut;
     private javax.swing.JComboBox comBox1;
     private javax.swing.JComboBox comBox2;
     private javax.swing.JCheckBox europeBox;

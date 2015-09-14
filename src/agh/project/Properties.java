@@ -12,15 +12,18 @@ import java.io.PrintWriter;
 import java.util.Vector;
 
 /**
- * This class 
+ * This class manage with properties.txt file.
  * @author Jakub Latala
- * @version 1.0
  */
 public class Properties {
 	
 	static final String name="";
 	public static String region[] = {"asia", "europe", "atlantic", "america"};
 	
+	/**
+	 * Initialize properties.txt file
+	 * @throws IOException
+	 */
 	public static void initProp() throws IOException{	
 		createProp();
 		for(int i=0;i<4;i++){
@@ -31,6 +34,10 @@ public class Properties {
 		}
 	}
 	
+	/**
+	 * Creates properties.txt file
+	 * @throws IOException
+	 */
 	public static void createProp() throws IOException{
 		deleteProp();
 		FileWriter wr = new FileWriter("src/agh/project/properties.txt");
@@ -40,11 +47,23 @@ public class Properties {
 		wr.close();
 	}
 	
+	/**
+	 * Delete properties.txt file
+	 */
 	public static void deleteProp(){
 		File prop = new File("src/agh/project/properties.txt");
 		prop.delete();
 	}
 	
+	/**
+	 * Adds website with parameters to properties.txt file
+	 * @param regName name of region
+	 * @param regNamePac for Packages websites
+	 * @param url lyngsat url
+	 * @param timeout timeout
+	 * @param attempts number of tries
+	 * @throws IOException
+	 */
 	public static void addWebsite(String regName, String regNamePac, String url, int timeout, int attempts) throws IOException{
 		try(PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("src/agh/project/properties.txt", true)))) {
 			out.println();
@@ -59,6 +78,11 @@ public class Properties {
 		}
 	}
 	
+	/**
+	 * Delete website with parameters from properties.txt file
+	 * @param url lyngsat url
+	 * @throws IOException
+	 */
 	public static void deleteWebsite(String url) throws IOException{
 		File inputFile = new File("src/agh/project/properties.txt");
 		File tempFile = new File("tmpFile.txt");
