@@ -2,10 +2,10 @@ package agh.project;
 
 //ta klasa poki co nie jest wykorzystywana
 public class Satellites {
-	private String Name;
-    private String EW;
-    private Double Coordinates;
-    private String Last_Update;
+	public String Name;
+    public String EW;
+    public Double Coordinates;
+    public String Last_Update;
  
     public Double getCoordinates() {
         return Coordinates;

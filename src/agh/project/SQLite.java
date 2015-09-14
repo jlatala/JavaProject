@@ -100,10 +100,10 @@ public class SQLite {
         return true;
     }
     //zwracanie bazy z postaci listy
-    public List<Satellites> selectSatellites() {
+    public List<Satellites> selectSatellites(String Command) {
         List<Satellites> satellites = new LinkedList<Satellites>();
         try {
-            ResultSet result = stat.executeQuery("SELECT * FROM satellites");// WHERE Coordinates > 155 AND Coordinates < 170");
+            ResultSet result = stat.executeQuery(Command);// WHERE Coordinates > 155 AND Coordinates < 170");
             String Name, EW, Last_Updt;
             Double Coordinates;
             while(result.next()) {

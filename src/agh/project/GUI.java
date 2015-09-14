@@ -1,5 +1,6 @@
 package agh.project;
 import java.io.IOException;
+import java.sql.ResultSet;
 import java.util.List;
 import java.util.Vector;
 
@@ -41,6 +42,11 @@ public class GUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
 
+		MaxW = 0.0;
+		MinW = 180.0;
+		MaxE = 0.0;
+		MinE = 180.0;
+    	
     	String TmpText = new String("");
     	DataBase.Content = new SQLite();
 		Downloader.readSettings();
@@ -95,6 +101,26 @@ public class GUI extends javax.swing.JFrame {
         TextField.setLineWrap(true);
         TextFieldScroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         TextFieldScroll.setViewportView(TextField);
+        
+		RadioButtonW1.setSelected(true);
+		RadioButtonE1.setSelected(false);
+		RadioButtonW2.setSelected(false);
+		RadioButtonE2.setSelected(true);
+		
+		WSlider.setMinimum(MinW.intValue());
+		WSlider.setMaximum(MaxW.intValue());
+		WSlider.setMajorTickSpacing((new Double(((MinW.intValue()+MaxW.intValue())/5))).intValue());
+		WSlider.setMinorTickSpacing((new Double(((MinW.intValue()+MaxW.intValue())/25))).intValue());
+		WSlider.setPaintTicks(true);
+		WSlider.setPaintLabels(true);
+		//tmpxxx = (new Double(((MinE.intValue()+MaxE.intValue())/10))).intValue();
+		ESlider.setMinimum(MinE.intValue());
+		ESlider.setMaximum(MaxE.intValue());
+		
+		ESlider.setMajorTickSpacing((new Double(((MinE.intValue()+MaxE.intValue())/5))).intValue());
+		WSlider.setMinorTickSpacing((new Double(((MinE.intValue()+MaxE.intValue())/25))).intValue());
+		ESlider.setPaintTicks(true);
+		ESlider.setPaintLabels(true);
         //TextField.addActionListener(new java.awt.event.ActionListener() {
            // public void actionPerformed(java.awt.event.ActionEvent evt) {
             //    TextFieldActionPerformed(evt);
@@ -111,6 +137,30 @@ public class GUI extends javax.swing.JFrame {
             }
         });
 
+        RadioButtonW1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+            	RadioButtonW1ButtonMouseClicked(evt);
+            }
+        });
+        
+        RadioButtonE1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+            	RadioButtonE1ButtonMouseClicked(evt);
+            }
+        });
+        
+        RadioButtonW2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+            	RadioButtonW2ButtonMouseClicked(evt);
+            }
+        });
+        
+        RadioButtonE2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+            	RadioButtonE2ButtonMouseClicked(evt);
+            }
+        });
+        
        // jLabel1.setText("E");
 
         //jLabel2.setText("W");
@@ -246,8 +296,101 @@ public class GUI extends javax.swing.JFrame {
 
     private void ShowButtonMouseClicked(java.awt.event.MouseEvent evt) {                                        
         // TODO add your handling code here:
+    	
+    	
+    		TextField.setText("DDD");
+
+    		GetMin = WSlider.getValue();
+    		GetMax = ESlider.getValue();
+    		String Command = new String();
+    		TextField.setText(GetMin.toString());
+    		if (RadioButtonW1.isSelected() && RadioButtonW2.isSelected())
+    		{
+    			Command = "SELECT * FROM satellites WHERE (EW='W' AND Coordinates <"+GetMax.toString()+" AND Coordinates >"+GetMin.toString()+")";
+    		}
+    		else if (RadioButtonW1.isSelected() && RadioButtonE2.isSelected())
+    		{
+    			Command = "SELECT * FROM satellites WHERE (EW='W' AND Coordinates >"+GetMin.toString()+") OR ( EW='E' AND Coordinates <"+GetMax.toString()+")";
+    		}
+    		else if (RadioButtonE1.isSelected() && RadioButtonE2.isSelected())
+    		{
+    			Command = "SELECT * FROM satellites WHERE (EW='E' AND Coordinates <"+GetMax.toString()+" AND Coordinates >"+GetMin.toString()+")";
+    		}
+    		else
+    		{
+    			TextField.setText("Error");
+    		}
+
+    		List<Satellites> satellite = DataBase.Content.selectSatellites(Command);
+    		String tmp = new String();
+    		Satellites TmpSat = satellite.get(0);
+
+    		
+    		for(Satellites sat: satellite)
+    		{
+    			tmp+=sat+"\n";
+    		}
+    		
+        	TextField.setText(tmp);
+    		
+    		
     }                                       
 
+    private void RadioButtonW1ButtonMouseClicked(java.awt.event.MouseEvent evt) {                                        
+        // TODO add your handling code here:
+    	if (RadioButtonE1.isSelected())
+    		RadioButtonE1.setSelected(false);
+		WSlider.setMinimum(MinW.intValue());
+		WSlider.setMaximum(MaxW.intValue());
+		WSlider.setMajorTickSpacing((new Double(((MinW.intValue()+MaxW.intValue())/5))).intValue());
+		WSlider.setMinorTickSpacing((new Double(((MinW.intValue()+MaxW.intValue())/25))).intValue());
+		WSlider.setPaintTicks(true);
+		WSlider.setPaintLabels(true);
+    	
+    	
+    }    
+    
+    private void RadioButtonE1ButtonMouseClicked(java.awt.event.MouseEvent evt) {                                        
+        // TODO add your handling code here:
+    	if (RadioButtonW1.isSelected())
+    		RadioButtonW1.setSelected(false);
+    	
+		WSlider.setMinimum(MinE.intValue());
+		WSlider.setMaximum(MaxE.intValue());	
+		WSlider.setMajorTickSpacing((new Double(((MinE.intValue()+MaxE.intValue())/5))).intValue());
+		WSlider.setMinorTickSpacing((new Double(((MinE.intValue()+MaxE.intValue())/25))).intValue());
+		WSlider.setPaintTicks(true);
+		WSlider.setPaintLabels(true);
+    } 
+    
+    private void RadioButtonW2ButtonMouseClicked(java.awt.event.MouseEvent evt) {                                        
+        // TODO add your handling code here:
+    	if (RadioButtonE2.isSelected())
+    		RadioButtonE2.setSelected(false);
+		ESlider.setMinimum(MinW.intValue());
+		ESlider.setMaximum(MaxW.intValue());
+		ESlider.setMajorTickSpacing((new Double(((MinW.intValue()+MaxW.intValue())/5))).intValue());
+		ESlider.setMinorTickSpacing((new Double(((MinW.intValue()+MaxW.intValue())/25))).intValue());
+		ESlider.setPaintTicks(true);
+		ESlider.setPaintLabels(true);
+    } 
+    
+   private void RadioButtonE2ButtonMouseClicked(java.awt.event.MouseEvent evt) {                                        
+        // TODO add your handling code here:
+   	if (RadioButtonW2.isSelected())
+		RadioButtonW2.setSelected(false);
+   	
+	ESlider.setMinimum(MinE.intValue());
+	ESlider.setMaximum(MaxE.intValue());
+	
+	ESlider.setMajorTickSpacing((new Double(((MinE.intValue()+MaxE.intValue())/5))).intValue());
+	ESlider.setMinorTickSpacing((new Double(((MinE.intValue()+MaxE.intValue())/25))).intValue());
+	ESlider.setPaintTicks(true);
+	ESlider.setPaintLabels(true);
+   	
+   	
+    } 
+    
     private void DownloadButtonMouseClicked(java.awt.event.MouseEvent evt) {                                            
         // TODO add your handling code here:
     	//DownloaderPool.DownloadedContent=null;
@@ -267,11 +410,56 @@ public class GUI extends javax.swing.JFrame {
 		while(!DownloaderPool.Done);
 		//TextField.setText(DownloaderPool.DownloadedContent[0]);
 		SQLite.run(DataBase.Content);
-		List<Satellites> satellite = DataBase.Content.selectSatellites();
+		List<Satellites> satellite = DataBase.Content.selectSatellites("SELECT * FROM satellites");
 		String tmp = new String();
+		Satellites TmpSat = satellite.get(0);
+
+		
 		for(Satellites sat: satellite)
+		{
 			tmp+=sat+"\n";
+			if (sat.EW.equals("W"))
+			{
+				if(sat.Coordinates>MaxW)
+					MaxW=sat.Coordinates;
+				else if (sat.Coordinates<MinW)
+					MinW=sat.Coordinates;
+			}
+			else if(sat.EW.equals("E"))
+			{
+				if(sat.Coordinates>MaxE)
+					MaxE=sat.Coordinates;
+				else if (sat.Coordinates<MinE)
+					MinE=sat.Coordinates;
+			}
+		}
+		//Integer tmpxxx = (new Double(((MinW.intValue()+MaxW.intValue())/5))).intValue();
+		WSlider.setMinimum(MinW.intValue());
+		WSlider.setMaximum(MaxW.intValue());
+		WSlider.setMajorTickSpacing((new Double(((MinW.intValue()+MaxW.intValue())/5))).intValue());
+		WSlider.setMinorTickSpacing((new Double(((MinW.intValue()+MaxW.intValue())/25))).intValue());
+		WSlider.setPaintTicks(true);
+		WSlider.setPaintLabels(true);
+		//tmpxxx = (new Double(((MinE.intValue()+MaxE.intValue())/10))).intValue();
+		ESlider.setMinimum(MinE.intValue());
+		ESlider.setMaximum(MaxE.intValue());
+		
+		ESlider.setMajorTickSpacing((new Double(((MinE.intValue()+MaxE.intValue())/5))).intValue());
+		ESlider.setMinorTickSpacing((new Double(((MinE.intValue()+MaxE.intValue())/25))).intValue());
+		ESlider.setPaintTicks(true);
+		ESlider.setPaintLabels(true);
+		
+		
+			
+			
+
 		TextField.setText(tmp);
+		
+		//ResultSet result = stat.executeQuery(Command)
+		
+		//Satellites S1 = new Sattelites();
+		
+		
 		//System.out.println(HugeText);
 		//HugeText = "Benjamin";
 		//while (HugeText ==null);	
@@ -336,5 +524,12 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JRadioButton RadioButtonW1;
     private javax.swing.JRadioButton RadioButtonW2;
     private javax.swing.JRadioButton RadioButtonE1;
+    private Double MinE;
+    private Double MaxE;
+    private Double MinW;
+    private Double MaxW;
+    private Integer GetMin;
+    private Integer GetMax;
+
     // End of variables declaration                   
 }
